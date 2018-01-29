@@ -1,45 +1,33 @@
-#include "../libft/libft.h"
-#include <stdio.h>
-#include <stdlib.h>
-//pseudocode
-/*
-DFS(G, u)
-    u.visited = true
-    for each v ∈ G.Adj[u]
-        if v.visited == false
-            DFS(G,v)
-     
-init() {
-    For each u ∈ G
-        u.visited = false
-     For each u ∈ G
-       DFS(G, u)
-}*/
+#include "../lemin.h"
 
-struct node
+static void validate(t_info *data)
 {
-    int vertex;
-    struct node* next;
-};
+    char *line;
+    line = data->name;
+    while (get_next_line(0, &line) > 0)
+    {
+        //DO PIPING IN VALIDATION THING HERE (IF ARGC == 2), ETC
+        printf("string: %s\n", line);
+    }
+}
 
-struct node* createNode(int v);
-
-struct Graph
+static void init_struct(t_info *data)
 {
-    int numVertices;
-    int* visited;
-    struct node** adjLists; // we need int** to store a two dimensional array. Similary, we need struct node** to store an array of Linked lists
-};
+    data->start = NULL;
+    data->end = NULL;
+    data->ants = 0;
+    data->name = NULL;
+}
 
-struct Graph* createGraph(int);
-void addEdge(struct Graph*, int, int);
-void printGraph(struct Graph*);
-void DFS(struct Graph*, int);
-
-
-int main()
+int main(int argc, char **argv)
 {
+    t_info *data;
 
+    data = (t_info *)ft_memalloc(sizeof(t_info));
+    init_struct(data);
+    data->name = argv[1];
+    ft_printf("argc: %d\tdata->name: %s\n", argc, data->name);
+    validate(data);
     struct Graph* graph = createGraph(4);
     addEdge(graph, 0, 1);
     addEdge(graph, 0, 2);
@@ -48,7 +36,7 @@ int main()
     
     printGraph(graph);
 
-    DFS(graph, 0);
+    DFS(graph, 2);
     
     return 0;
 }
@@ -57,25 +45,24 @@ void DFS(struct Graph* graph, int vertex) {
         struct node* adjList = graph->adjLists[vertex];
         struct node* temp = adjList;
         
-        int target = 0;
+        // int target = 1;
         graph->visited[vertex] = 1;
         printf("Visited %d \n", vertex);
     
         while(temp!=NULL) {
             int connectedVertex = temp->vertex;
         
-            if (connectedVertex == target)
-            {
-                ft_printf("Found it! Target: %d\n", connectedVertex);
-                exit(0);
-            }
+            // if (connectedVertex == target)
+            // {
+            //     ft_printf("Found it! Target: %d\n", connectedVertex);
+            //     exit(0);
+            // }
             if (graph->visited[connectedVertex] == 0) {
                 DFS(graph, connectedVertex);
             }
             temp = temp->next;
         }       
 }
-
  
 struct node* createNode(int v)
 {
