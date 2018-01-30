@@ -1,6 +1,17 @@
 #include "../lemin.h"
 
-static void validate(t_info *data)
+static void ants(t_info *data)
+{
+    int i;
+    i = 0;
+    data->ants = ft_atoi(data->file[0]);
+    if (data->ants < 1)
+        ft_error("error: no ants");
+    else
+        printf("data->ants: %d\n", data->ants);
+
+}
+static void build_file(t_info *data)
 {
     int i;
     i = 0;
@@ -10,11 +21,9 @@ static void validate(t_info *data)
         data->file[i] = data->line;
         i++;
     }
-    i = -1;
-    while (data->file[++i])
-        printf("data->file[%d]: %s\n", i, data->file[i]);
-
-
+//    i = -1;
+//    while (data->file[++i])
+//        printf("data->file[%d]: %s\n", i, data->file[i]);
 }
 
 static void init_struct(t_info *data)
@@ -35,7 +44,8 @@ int main(int argc, char **argv)
     data = (t_info *)ft_memalloc(sizeof(t_info));
     init_struct(data);
     data->name = argv[1];
-    validate(data);
+    build_file(data);
+    ants(data);
     struct Graph* graph = createGraph(4);
     addEdge(graph, 0, 1);
     addEdge(graph, 0, 2);
