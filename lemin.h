@@ -25,8 +25,8 @@ struct Graph
 
 typedef struct  s_info
 {
-	char	*start; 
-	char	*end;
+    int	    start;
+	int     end;
 	int		ants;
     char    **file;
 	char	*name;
@@ -38,5 +38,8 @@ struct Graph* createGraph(int);
 void addEdge(struct Graph*, int, int);
 void printGraph(struct Graph*);
 void DFS(struct Graph*, int);
+void    find_start(t_info *data);
+void    validate(t_info *data)
+;
 
 #endif
