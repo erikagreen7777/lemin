@@ -2,13 +2,19 @@
 
 static void validate(t_info *data)
 {
-    char *line;
-    line = data->name;
-    while (get_next_line(0, &line) > 0)
+    int i;
+    i = 0;
+    data->file = (char **)ft_memalloc(sizeof(data->file) * 10000);
+    while (get_next_line(0, &data->line) > 0)
     {
-        //DO PIPING IN VALIDATION THING HERE (IF ARGC == 2), ETC
-        printf("string: %s\n", line);
+        data->file[i] = data->line;
+        i++;
     }
+    i = -1;
+    while (data->file[++i])
+        printf("data->file[%d]: %s\n", i, data->file[i]);
+
+
 }
 
 static void init_struct(t_info *data)
@@ -17,16 +23,18 @@ static void init_struct(t_info *data)
     data->end = NULL;
     data->ants = 0;
     data->name = NULL;
+    data->line = NULL;
+    data->file = NULL;
 }
 
 int main(int argc, char **argv)
 {
     t_info *data;
-
+    if (argc == 1)
+        ;
     data = (t_info *)ft_memalloc(sizeof(t_info));
     init_struct(data);
     data->name = argv[1];
-    ft_printf("argc: %d\tdata->name: %s\n", argc, data->name);
     validate(data);
     struct Graph* graph = createGraph(4);
     addEdge(graph, 0, 1);
