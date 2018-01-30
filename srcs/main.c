@@ -28,8 +28,8 @@ static void build_file(t_info *data)
 
 static void init_struct(t_info *data)
 {
-    data->start = NULL;
-    data->end = NULL;
+    data->start = -1;
+    data->end = -1;
     data->ants = 0;
     data->name = NULL;
     data->line = NULL;
@@ -46,6 +46,7 @@ int main(int argc, char **argv)
     data->name = argv[1];
     build_file(data);
     ants(data);
+    validate(data);
     struct Graph* graph = createGraph(4);
     addEdge(graph, 0, 1);
     addEdge(graph, 0, 2);
