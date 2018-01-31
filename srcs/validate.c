@@ -4,7 +4,11 @@ static void room_trim(t_info *data, int storend)
 {
     int i;
     i = 0;
-    char *temp = data->startstr;
+    char *temp = NULL;
+    if (storend == 0)
+        temp = data->startstr;
+    else if (storend == 1)
+        temp = data->endstr;
     while (temp[i] != ' ' || temp[i] != '\n')
     {
         if (temp[i] ==  ' ' || temp[i] == '\n')
@@ -84,7 +88,7 @@ void    find_end(t_info *data)
     {
         if (ft_strstr("##end", data->file[i])){
             data->end = i;
-            printf("found it! line: %d data->end: %d\n", i, data->end);
+//            printf("found it! line: %d data->end: %d\n", i, data->end);
             break;
         }
         i++;
