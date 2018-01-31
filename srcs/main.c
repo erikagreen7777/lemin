@@ -15,15 +15,17 @@ static void build_file(t_info *data)
 {
     int i;
     i = 0;
-    data->file = (char **)ft_memalloc(sizeof(data->file) * 10000);
+    data->file = (char **)ft_memalloc(sizeof(char **) * 5000);
     while (get_next_line(0, &data->line) > 0)
     {
         data->file[i] = data->line;
         i++;
+
     }
-//    i = -1;
-//    while (data->file[++i])
-//        printf("data->file[%d]: %s\n", i, data->file[i]);
+    ft_strdel(&data->line);
+    i = -1;
+    while (data->file[++i])
+        printf("data->file[%d]: %s\n", i, data->file[i]);
 }
 
 static void init_struct(t_info *data)
@@ -34,6 +36,10 @@ static void init_struct(t_info *data)
     data->name = NULL;
     data->line = NULL;
     data->file = NULL;
+    data->startingroom = NULL;
+    data->endingroom = NULL;
+    data->startstr = NULL;
+    data->endstr = NULL;
 }
 
 int main(int argc, char **argv)
