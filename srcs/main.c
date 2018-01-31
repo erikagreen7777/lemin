@@ -7,8 +7,8 @@ static void ants(t_info *data)
     data->ants = ft_atoi(data->file[0]);
     if (data->ants < 1)
         ft_error("error: no ants");
-    else
-        printf("data->ants: %d\n", data->ants);
+//    else
+//        printf("data->ants: %d\n", data->ants);
 
 }
 static void build_file(t_info *data)
@@ -20,12 +20,15 @@ static void build_file(t_info *data)
     {
         data->file[i] = data->line;
         i++;
-
     }
+    if (data->line == NULL)
+        ft_error("empty file");
     ft_strdel(&data->line);
+    data->linecount = i;
     i = -1;
     while (data->file[++i])
         printf("data->file[%d]: %s\n", i, data->file[i]);
+    printf("linecount: %d\n", data->linecount);
 }
 
 static void init_struct(t_info *data)
@@ -40,6 +43,7 @@ static void init_struct(t_info *data)
     data->endingroom = NULL;
     data->startstr = NULL;
     data->endstr = NULL;
+    data->linecount = -1;
 }
 
 int main(int argc, char **argv)
