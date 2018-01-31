@@ -107,14 +107,23 @@ void    find_end(t_info *data)
         ft_error("error: no start/end room");
 }
 
-//void    assign_rooms(t_info *data)
-//{
-//
-//}
+void    assign_rooms(t_info *data)
+{
+    int i;
+    i = data->start;
+    printf("startroom: %d\tendroom: %d\n", data->start, data->end);
+    while (data->file[i])
+    {
+        data->rooms = mallocfor the thing;
+    }
+}
+
 void    validate(t_info *data)
 {
     find_start(data);
     find_end(data);
-//    assign_rooms(data);
+    assign_rooms(data);
+    //validate_rooms(data);
+    //find_connections(data);
 }
 
