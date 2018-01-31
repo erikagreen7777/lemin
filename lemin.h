@@ -31,17 +31,19 @@ typedef struct  s_info
 	int     end;
     char    *endingroom;
     char    *endstr;
+	int 	linecount;
+    char    **rooms;
 	int		ants;
     char    **file;
 	char	*name;
     char    *line;
 }			t_info;
 
-struct node* createNode(int v);
-struct Graph* createGraph(int);
-void addEdge(struct Graph*, int, int);
-void printGraph(struct Graph*);
-void DFS(struct Graph*, int);
+struct 	node* createNode(int v);
+struct 	Graph* createGraph(int);
+void 	addEdge(struct Graph*, int, int);
+void 	printGraph(struct Graph*);
+void 	DFS(struct Graph*, int);
 void    find_start(t_info *data);
 void    validate(t_info *data);
 
