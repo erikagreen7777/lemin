@@ -44,6 +44,7 @@ static void init_struct(t_info *data)
     data->startstr = NULL;
     data->endstr = NULL;
     data->linecount = -1;
+    data->rooms = NULL;
 }
 
 int main(int argc, char **argv)
