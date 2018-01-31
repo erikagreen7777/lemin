@@ -107,9 +107,14 @@ void    find_end(t_info *data)
         ft_error("error: no start/end room");
 }
 
+//void    assign_rooms(t_info *data)
+//{
+//
+//}
 void    validate(t_info *data)
 {
     find_start(data);
     find_end(data);
+//    assign_rooms(data);
 }
 
