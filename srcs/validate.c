@@ -1,5 +1,11 @@
 #include "../lemin.h"
 
+//nopath isn't accounted for
+//no_tubes isn't accounted for
+//bad_rooms
+//space_room && space_room2
+//apparently simple2 is INVALID
+
 static void room_trim(t_info *data, int storend)
 {
     int i;
@@ -36,7 +42,7 @@ static int      check_start_room(t_info *data)
         if ((data->file[data->start][0] != '#') && (data->file[data->start][0] != 'L'))
         {
             data->startstr = data->file[data->start];
-            printf("start str: %s\n", data->startstr);
+//            printf("start str: %s\n", data->startstr);
             return (1);
         }
     }
@@ -52,7 +58,7 @@ static int      check_end_room(t_info *data)
         if ((data->file[data->end][0] != '#') && (data->file[data->end][0] != 'L'))
         {
             data->endstr = data->file[data->end];
-            printf("end str: %s\n", data->endstr);
+//            printf("end str: %s\n", data->endstr);
             return (1);
         }
     }
