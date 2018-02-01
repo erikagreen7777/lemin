@@ -17,6 +17,7 @@ static void room_trim(t_info *data, int storend)
         temp = data->endstr;
     while (temp[i] != ' ' || temp[i] != '\n')
     {
+       //add in "spacecount" and check for number of spaces?
         if (temp[i] ==  ' ' || temp[i] == '\n')
             break;
         i++;
@@ -107,17 +108,23 @@ void    find_end(t_info *data)
         ft_error("error: no start/end room");
 }
 
-void    assign_rooms(t_info *data)
-{
+void    assign_rooms(t_info *data) {
     int i;
-    i = data->start;
+    i = 0;
     printf("startroom: %d\tendroom: %d\n", data->start, data->end);
-    while (data->file[i])
-    {
-        data->rooms = mallocfor the thing;
+    data->rooms = (char **) ft_memalloc(sizeof(char *) * ((data->linecount + 1)));
+    while (i < data->linecount) {
+        printf("data->file[i]: %s\n", data->file[i]);
+        data->rooms[i] = ft_strdup(data->file[i]);
+        printf("data->rooms[i]: %s\n", data->rooms[i]);
+        i++;
+    }
+    i = -1;
+    while (++i < data->linecount) {
+        printf("Hello!");
+        printf("rooms: %s\n", data->rooms[i]);
     }
 }
-
 void    validate(t_info *data)
 {
     find_start(data);
