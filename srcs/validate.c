@@ -1,12 +1,5 @@
 #include "../lemin.h"
 
-//nopath isn't accounted for
-//no_tubes isn't accounted for
-//bad_rooms
-//space_room && space_room2
-//apparently simple2 is INVALID
-
-
 
 void    find_start(t_info *data)
 {
@@ -24,7 +17,8 @@ void    find_start(t_info *data)
     if (data->start == -1)
         ft_error("ERROR");
     if (check_start_room(data))
-        room_trim(data, 0);
+        ;
+        // start_trim(data);
     else
         ft_error("ERROR");
 }
@@ -46,17 +40,29 @@ void    find_end(t_info *data)
     if (data->end == -1)
         ft_error("ERROR");
     if (check_end_room(data))
-        room_trim(data, 1);
+        ;
+        // room_trim(data, 1);
     if (ft_strcmp(data->startstr, data->endstr) == 0)
         ft_error("ERROR");
+    ft_printf("data->endstr: %s\n", data->endstr);
 }
 
 
 void    validate(t_info *data)
 {
+
     find_start(data);
     find_end(data);
     assign_rooms(data);
 
 }
+
+   //  int j = -1;
+   // // printf("data->linecount: %d\n", data->linecount);
+   //  while (++j < data->linecount)
+   //  {
+   //      // if (data->rooms[j] != NULL)
+   //          printf("HERE ARE THE NEW ROOMS[%d]: %s\n", j, data->rooms[j]);
+   //  }
+
 
