@@ -6,7 +6,7 @@ static void ants(t_info *data)
     i = 0;
     data->ants = ft_atoi(data->file[0]);
     if (data->ants < 1)
-        ft_error("error: no ants");
+        ft_error("ERROR");
 //    else
 //        printf("data->ants: %d\n", data->ants);
 
@@ -18,21 +18,23 @@ static void build_file(t_info *data)
     data->file = (char **)ft_memalloc(sizeof(char **) * 5000);
     while (get_next_line(0, &data->line) > 0)
     {
-        data->file[i] = data->line;
+        data->file[i] = (data->line);
         i++;
     }
+    printf("lineeeeeeee: %s", data->line);
     if (data->line == NULL)
-        ft_error("empty file");
-    ft_strdel(&data->line);
+        ft_error("ERROR");
     data->linecount = i;
     i = -1;
     while (data->file[++i])
         printf("data->file[%d]: %s\n", i, data->file[i]);
-    printf("linecount: %d\n", data->linecount);
+    // printf("linecount: %d\n", data->linecount);
 }
 
 static void init_struct(t_info *data)
 {
+    char *filename = "maps/simple";
+    data->fd = open(filename, O_RDONLY);
     data->start = -1;
     data->end = -1;
     data->ants = 0;
@@ -51,23 +53,25 @@ static void init_struct(t_info *data)
 int main(int argc, char **argv)
 {
     t_info *data;
+
     if (argc == 1)
         ;
     data = (t_info *)ft_memalloc(sizeof(t_info));
+    
     init_struct(data);
     data->name = argv[1];
     build_file(data);
     ants(data);
     validate(data);
-    struct Graph* graph = createGraph(4);
-    addEdge(graph, 0, 1);
-    addEdge(graph, 0, 2);
-    addEdge(graph, 1, 2);
-    addEdge(graph, 2, 3);
+    // struct Graph* graph = createGraph(4);
+    // addEdge(graph, 0, 1);
+    // addEdge(graph, 0, 2);
+    // addEdge(graph, 1, 2);
+    // addEdge(graph, 2, 3);
     
-    printGraph(graph);
+    // printGraph(graph);
 
-    DFS(graph, 2);
+    // DFS(graph, 2);
     
     return 0;
 }
