@@ -15,6 +15,8 @@ static void room_trim(t_info *data, int storend)
         temp = data->startstr;
     else if (storend == 1)
         temp = data->endstr;
+    else if (storend == 2)
+        temp = data->rooms[data->curr];
     while (temp[i] != ' ' || temp[i] != '\n')
     {
        //add in "spacecount" and check for number of spaces?
@@ -25,12 +27,17 @@ static void room_trim(t_info *data, int storend)
     if (storend == 0)
     {
         data->startingroom = ft_strndup(temp, i);
-        printf("data->startingroom: %s\n", data->startingroom);
+//        printf("data->startingroom: %s\n", data->startingroom);
     }
     else if (storend == 1)
     {
         data->endingroom = ft_strndup(temp, i);
-        printf("data->endingroom: %s\n", data->endingroom);
+//        printf("data->endingroom: %s\n", data->endingroom);
+    }
+    else if (storend == 2)
+    {
+        data->rooms[data->curr] = ft_strndup(temp, i);
+//        printf("room-trim data->rooms: %s\n", data->rooms[data->curr]);
     }
 }
 
@@ -79,11 +86,11 @@ void    find_start(t_info *data)
         i++;
     }
     if (data->start == -1)
-        ft_error("error: no start room");
+        ft_error("ERROR");
     if (check_start_room(data))
         room_trim(data, 0);
     else
-        ft_error("no start room found");
+        ft_error("ERROR");
 }
 
 void    find_end(t_info *data)
@@ -101,36 +108,51 @@ void    find_end(t_info *data)
         i++;
     }
     if (data->end == -1)
-        ft_error("error: no end room");
+        ft_error("ERROR");
     if (check_end_room(data))
         room_trim(data, 1);
     if (ft_strcmp(data->startstr, data->endstr) == 0)
-        ft_error("error: no start/end room");
+        ft_error("ERROR");
+}
+
+static void clean_rooms(t_info *data) {
+    int i;
+    i = data->start - 1;
+    while (++i < data->linecount)
+    {
+        if (ft_strstr("##end", data->rooms[i]))
+            ft_strdel(&data->rooms[i]);
+    }
+    data->curr = data->start - 1;
+    while (++data->curr < data->linecount)
+    {
+        if (data->rooms[data->curr] != NULL)
+            room_trim(data, 2);
+    }
+    i = data->start - 1;
+    while (++i < data->linecount)
+        printf("HERE ARE THE NEW ROOMS: %s\n", data->rooms[i]);
+
 }
 
 void    assign_rooms(t_info *data) {
     int i;
-    i = 0;
-    printf("startroom: %d\tendroom: %d\n", data->start, data->end);
+    i = data->start;
     data->rooms = (char **) ft_memalloc(sizeof(char *) * ((data->linecount + 1)));
     while (i < data->linecount) {
-        printf("data->file[i]: %s\n", data->file[i]);
         data->rooms[i] = ft_strdup(data->file[i]);
-        printf("data->rooms[i]: %s\n", data->rooms[i]);
         i++;
     }
-    i = -1;
-    while (++i < data->linecount) {
-        printf("Hello!");
-        printf("rooms: %s\n", data->rooms[i]);
-    }
+
+    clean_rooms(data);
+    //clean non-essential information from the struct
+    //then room trim the room info
 }
 void    validate(t_info *data)
 {
     find_start(data);
     find_end(data);
     assign_rooms(data);
-    //validate_rooms(data);
-    //find_connections(data);
+
 }
 
