@@ -47,5 +47,10 @@ void 	printGraph(struct Graph*);
 void 	DFS(struct Graph*, int);
 void    find_start(t_info *data);
 void    validate(t_info *data);
+int     check_start_room(t_info *data);
+int     check_end_room(t_info *data);
+void    room_trim(t_info *data, int storend);
+void    clean_rooms(t_info *data);
+void    assign_rooms(t_info *data);
 
 #endif
