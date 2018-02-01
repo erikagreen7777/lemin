@@ -25,6 +25,7 @@ struct Graph
 
 typedef struct  s_info
 {
+    int     fd;
     int     curr;
     int	    start;
     char    *startingroom;
@@ -52,5 +53,9 @@ int     check_end_room(t_info *data);
 void    room_trim(t_info *data, int storend);
 void    clean_rooms(t_info *data);
 void    assign_rooms(t_info *data);
+void    room_trim_rooms(t_info *data);
+void    start_trim(t_info *data);
+
+
 
 #endif
