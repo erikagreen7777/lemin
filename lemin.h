@@ -25,6 +25,7 @@ struct Graph
 
 typedef struct  s_info
 {
+    int     curr;
     int	    start;
     char    *startingroom;
 	char 	*startstr;
