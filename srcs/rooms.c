@@ -32,39 +32,20 @@ int      check_end_room(t_info *data)
     return (0);
 }
 
-void room_trim(t_info *data, int storend)
+void	room_trim_rooms(t_info *data)
 {
-    int i;
-    i = 0;
     char *temp = NULL;
-    if (storend == 0)
-        temp = data->startstr;
-    else if (storend == 1)
-        temp = data->endstr;
-    else if (storend == 2)
-        temp = data->rooms[data->curr];
-    while (temp[i] != ' ' || temp[i] != '\n')
+    int i = 0;
+    temp = (char *)ft_memalloc(sizeof(data->rooms[data->curr] + 1));
+    temp = data->rooms[data->curr];
+	while (temp[i] != ' ' || temp[i] != '\n')
     {
        //add in "spacecount" and check for number of spaces?
         if (temp[i] ==  ' ' || temp[i] == '\n')
             break;
         i++;
     }
-    if (storend == 0)
-    {
-        data->startingroom = ft_strndup(temp, i);
-//        printf("data->startingroom: %s\n", data->startingroom);
-    }
-    else if (storend == 1)
-    {
-        data->endingroom = ft_strndup(temp, i);
-//        printf("data->endingroom: %s\n", data->endingroom);
-    }
-    else if (storend == 2)
-    {
-        data->rooms[data->curr] = ft_strndup(temp, i);
-//        printf("room-trim data->rooms: %s\n", data->rooms[data->curr]);
-    }
+    data->rooms[data->curr] = ft_strndup(temp, i);
 }
 
 void clean_rooms(t_info *data) {
@@ -75,28 +56,35 @@ void clean_rooms(t_info *data) {
         if (ft_strstr("##end", data->rooms[i]))
             ft_strdel(&data->rooms[i]);
     }
+
     data->curr = data->start - 1;
     while (++data->curr < data->linecount)
     {
-        if (data->rooms[data->curr] != NULL)
-            room_trim(data, 2);
+        if (data->rooms[data->curr] != NULL && (!(ft_strstr(data->rooms[data->curr], "##start"))
+            && (!(ft_strstr(data->rooms[data->curr], "##end")))) )
+            room_trim_rooms(data);
+        else
+            ;
     }
-    i = data->start - 1;
-    while (++i < data->linecount)
-        printf("HERE ARE THE NEW ROOMS: %s\n", data->rooms[i]);
 
 }
 
 void    assign_rooms(t_info *data) {
+
     int i;
     i = data->start;
-    data->rooms = (char **) ft_memalloc(sizeof(char *) * ((data->linecount + 1)));
+    data->rooms = (char **)ft_memalloc(sizeof(char *) * data->linecount + 1);
     while (i < data->linecount) {
         data->rooms[i] = ft_strdup(data->file[i]);
         i++;
     }
-
     clean_rooms(data);
+    int j = -1;
+    while (++j < data->linecount)
+    {
+        if (data->rooms[j] != NULL)
+            printf("after: HERE ARE THE NEW ROOMS[%d]: %s\n", j, data->rooms[j]);
+    }
     //clean non-essential information from the struct
     //then room trim the room info
 }
