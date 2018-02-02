@@ -14,11 +14,11 @@ void    find_start(t_info *data)
         i++;
     }
     if (data->start == -1)
-        ft_error("ERROR");
+        ft_error("find_startERROR");
     if (check_start_room(data))
         ;
     else
-        ft_error("ERROR");
+        ft_error("find start 2ERROR");
 }
 
 void    find_end(t_info *data)
@@ -35,11 +35,11 @@ void    find_end(t_info *data)
         i++;
     }
     if (data->end == -1)
-        ft_error("ERROR");
+        ft_error("infd_end ERROR");
     if (check_end_room(data))
         ;
     if (ft_strcmp(data->startstr, data->endstr) == 0)
-        ft_error("ERROR");
+        ft_error("find end 2ERROR");
 }
 
 static void check_pipe_duplicates(t_info *data)
@@ -53,7 +53,7 @@ static void check_pipe_duplicates(t_info *data)
         while (j < data->pipecount)
         {
             if (ft_strcmp(data->pipes[i], data->pipes[j]) == 0)
-                ft_error("ERROR");
+                ft_error("check pipe dupesERROR");
             else
                 j++;
         }
@@ -70,7 +70,7 @@ void    assign_pipes(t_info *data)
         if (ft_strchr(data->file[i], '-'))
         {
             if (((i < data->start || i < data->end)) || (i == data->start || i == data->end))
-                ft_error("ERROR");
+                ft_error("assign pipesERROR");
             else
                 data->pipes[j] = ft_strdup(data->file[i]);
 
@@ -97,7 +97,7 @@ void    find_pipes(t_info *data)
         i++;
     }
     if (data->pipecount == 0)
-        ft_error("ERROR");
+        ft_error("find pipesERROR");
     data->pipes = (char **)ft_memalloc(sizeof(data->pipes) * data->pipecount + 1);
     assign_pipes(data);
 }
