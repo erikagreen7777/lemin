@@ -51,11 +51,8 @@ void    find_start(t_info *data);
 void    validate(t_info *data);
 int     check_start_room(t_info *data);
 int     check_end_room(t_info *data);
-void    room_trim(t_info *data, int storend);
-void    clean_rooms(t_info *data);
+char    *room_trim(char *str);
 void    assign_rooms(t_info *data);
-void    room_trim_rooms(t_info *data);
-void    start_trim(t_info *data);
 
 
 
