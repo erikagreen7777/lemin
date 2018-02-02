@@ -7,7 +7,6 @@ FLAG += -Wall -Werror -Wextra -g
 SRC = srcs/main.c \
         srcs/validate.c \
         srcs/rooms.c \
-        srcs/trimming.c
 	  
 OBJ = $(SRC:.c=.o)
 
