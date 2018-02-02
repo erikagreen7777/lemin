@@ -35,6 +35,8 @@ typedef struct  s_info
     char    *endstr;
     char    **pipes;
 	int 	linecount;
+    int     roomcount;
+    int     pipecount;
     char    **rooms;
 	int		ants;
     char    **file;
@@ -53,7 +55,6 @@ int     check_start_room(t_info *data);
 int     check_end_room(t_info *data);
 char    *room_trim(char *str);
 void    assign_rooms(t_info *data);
-
-
+int    check_duplicates(t_info *data, int pipeorroom);
 
 #endif
