@@ -47,6 +47,26 @@ static int  check_room(char *str)
     }
     return (0);
 }
+
+static void    check_room_duplicates(t_info *data)
+{
+    int i;
+    i = 0;
+    int j;
+     while (i < data->roomcount)
+    {
+        j = i + 1;
+        while (j < data->roomcount)
+        {
+            if (ft_strcmp(data->rooms[i], data->rooms[j]) == 0)
+                ft_error("ERROR");
+            else
+                j++;
+        }
+        i++;
+    }   
+}
+
 char    *room_trim(char *str)
 {
     int i = 0;
@@ -65,7 +85,6 @@ char    *room_trim(char *str)
         i++;
     }
     ft_strncpy(str, temp, i);
-    // printf("str: %s\n", str);
     ft_strdel(&temp);
     return (str);
 }
@@ -73,26 +92,30 @@ char    *room_trim(char *str)
 void    assign_rooms(t_info *data)
 {
     int i;
-    (data->start > data->end) ? (i = data->end) : (i = data->start);
+    i = 1;
+    // (data->start > data->end) ? (i = data->end) : (i = data->start);
     int j = 0;
-    int roomcount = 0;
     data->rooms = (char **)ft_memalloc(sizeof(char *) * data->linecount);
     while (data->file[i])
     {
-        if (!ft_strchr(data->file[i], '-') && (!ft_strchr(&data->file[i][0], '#'))){
+        if (ft_strchr(&data->file[i][0], 'L'))
+            ft_error("ERROR");
+        if (!ft_strchr(data->file[i], '-') && (!ft_strchr(&data->file[i][0], '#')))
+        {
             data->rooms[j] = ft_strdup(data->file[i]);
             // printf("room[%d]: %s\n", i, data->file[i]);
             room_trim(data->rooms[j]);
             // printf("new room[%d]: %s\n", i, data->rooms[j]);
-            roomcount++;
+            data->roomcount++;
             j++;
         }
         i++;
     }
-    if (roomcount == 0)
+    if (data->roomcount == 0)
         ft_error("ERROR");
+    check_room_duplicates(data);
     i = -1;
-    while (++i < roomcount)
+    while (++i < data->roomcount)
         printf("rooms[%d]: %s\n", i, data->rooms[i]);
 
 }
