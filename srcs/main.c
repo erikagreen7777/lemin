@@ -21,7 +21,6 @@ static void build_file(t_info *data)
         data->file[i] = (data->line);
         i++;
     }
-    printf("lineeeeeeee: %s", data->line);
     if (data->line == NULL)
         ft_error("ERROR");
     data->linecount = i;
