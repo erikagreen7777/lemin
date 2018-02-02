@@ -9,7 +9,7 @@ int      check_start_room(t_info *data)
         if ((data->file[data->start][0] != '#') && (data->file[data->start][0] != 'L'))
         {
             data->startstr = data->file[data->start];
-//            printf("start str: %s\n", data->startstr);
+           // printf("start str: %s\n", data->startstr);
             return (1);
         }
     }
@@ -25,7 +25,7 @@ int      check_end_room(t_info *data)
         if ((data->file[data->end][0] != '#') && (data->file[data->end][0] != 'L'))
         {
             data->endstr = data->file[data->end];
-//            printf("end str: %s\n", data->endstr);
+           // printf("end str: %s\n", data->endstr);
             return (1);
         }
     }
@@ -52,7 +52,8 @@ char    *room_trim(char *str)
 
 void    assign_rooms(t_info *data)
 {
-    int i = data->start;
+    int i;
+    (data->start > data->end) ? (i = data->end) : (i = data->start);
     int j = 0;
     int roomcount = 0;
     data->rooms = (char **)ft_memalloc(sizeof(char *) * data->linecount);
