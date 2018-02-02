@@ -40,7 +40,7 @@ static int  check_room(char *str)
     {
         if (str[i] == ' ')
         {
-            if (!(ft_isdigit(str[i + 1])))
+            if (!ft_isdigit(str[i + 1]))
                 return (1);
         }
         i++;
@@ -58,8 +58,10 @@ static void    check_room_duplicates(t_info *data)
         j = i + 1;
         while (j < data->roomcount)
         {
-            if (ft_strcmp(data->rooms[i], data->rooms[j]) == 0)
-                ft_error("ERROR");
+            if (ft_strcmp(data->rooms[i], data->rooms[j]) == 0){
+                printf("data->rooms[i]: %s\n", data->rooms[i]);
+                ft_error("rooms ERROR");
+            }
             else
                 j++;
         }
@@ -75,10 +77,12 @@ char    *room_trim(char *str)
     ft_bzero(str, sizeof(str));
     while (temp[i])
     {
-        if (temp[i] == ' ' || temp[i] == '\n' || temp[i] == '\t')
+        if (temp[i] == ' ')
         {
-            if (check_room(temp) == 1)
-                ft_error("ERROR");
+            if (check_room(temp) == 1){
+                printf("temp[%d]: %s\n", i, temp);
+                ft_error("room trim ERROR");
+            }
             else
                 break;
         }
@@ -99,7 +103,7 @@ void    assign_rooms(t_info *data)
     while (data->file[i])
     {
         if (ft_strchr(&data->file[i][0], 'L'))
-            ft_error("ERROR");
+            ft_error("assign rooms ERROR");
         if (!ft_strchr(data->file[i], '-') && (!ft_strchr(&data->file[i][0], '#')))
         {
             data->rooms[j] = ft_strdup(data->file[i]);
@@ -112,7 +116,7 @@ void    assign_rooms(t_info *data)
         i++;
     }
     if (data->roomcount == 0)
-        ft_error("ERROR");
+        ft_error("assign rooms 2ERROR");
     check_room_duplicates(data);
     i = -1;
     while (++i < data->roomcount)
