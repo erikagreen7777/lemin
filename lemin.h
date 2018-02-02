@@ -33,6 +33,7 @@ typedef struct  s_info
 	int     end;
     char    *endingroom;
     char    *endstr;
+    char    **pipes;
 	int 	linecount;
     char    **rooms;
 	int		ants;
