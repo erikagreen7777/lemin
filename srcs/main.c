@@ -6,7 +6,7 @@ static void ants(t_info *data)
     i = 0;
     data->ants = ft_atoi(data->file[0]);
     if (data->ants < 1)
-        ft_error("ERROR");
+        ft_error("ants ERROR");
 //    else
 //        printf("data->ants: %d\n", data->ants);
 
@@ -22,7 +22,7 @@ static void build_file(t_info *data)
         i++;
     }
     if (data->line == NULL)
-        ft_error("ERROR");
+        ft_error("line ERROR");
     data->linecount = i;
     i = -1;
     while (data->file[++i])
