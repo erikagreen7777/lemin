@@ -32,6 +32,21 @@ int      check_end_room(t_info *data)
     return (0);
 }
 
+static int  check_room(char *str)
+{
+    int i;
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == ' ')
+        {
+            if (!(ft_isdigit(str[i + 1])))
+                return (1);
+        }
+        i++;
+    }
+    return (0);
+}
 char    *room_trim(char *str)
 {
     int i = 0;
@@ -41,7 +56,12 @@ char    *room_trim(char *str)
     while (temp[i])
     {
         if (temp[i] == ' ' || temp[i] == '\n' || temp[i] == '\t')
-            break;
+        {
+            if (check_room(temp) == 1)
+                ft_error("ERROR");
+            else
+                break;
+        }
         i++;
     }
     ft_strncpy(str, temp, i);
