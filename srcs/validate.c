@@ -53,12 +53,12 @@ void    assign_pipes(t_info *data)
     int j = 0;
     while (data->file[i])
     {
-        if (ft_strchr(data->file[i], '-')){
-            printf("helo!\n");
+        if (ft_strchr(data->file[i], '-'))
+        {
             data->pipes[j] = ft_strdup(data->file[i]);
 
-        j++;
-    }
+            j++;
+        }
         i++;
     }
     data->pipes[j] = NULL;
@@ -77,10 +77,7 @@ void    find_pipes(t_info *data)
     while (data->file[i])
     {
         if (ft_strchr(data->file[i], '-'))
-        {
             pipecount++;
-            printf("Here's the pipe[%d]: %s\n", i, data->file[i]);
-        }
         i++;
     }
     if (pipecount == 0)
@@ -91,20 +88,12 @@ void    find_pipes(t_info *data)
 
 void    validate(t_info *data)
 {
-
     find_start(data);
     find_end(data);
     find_pipes(data);
-    // assign_rooms(data);
-
+    assign_rooms(data);
 }
 
-   //  int j = -1;
-   // // printf("data->linecount: %d\n", data->linecount);
-   //  while (++j < data->linecount)
-   //  {
-   //      // if (data->rooms[j] != NULL)
-   //          printf("HERE ARE THE NEW ROOMS[%d]: %s\n", j, data->rooms[j]);
-   //  }
+
 
 
