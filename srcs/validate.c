@@ -61,6 +61,21 @@ static void check_pipe_duplicates(t_info *data)
     }
 }
 
+static int  is_pipe(char *str)
+{
+    int i;
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == '-')
+            break;
+        i++;
+    }
+    if (!ft_isalnum(str[i - 1]) || (!ft_isalnum(str[i + 1])))
+        return (1);
+    return (0);
+}
+
 void    assign_pipes(t_info *data)
 {
     int i = 0;
@@ -69,11 +84,12 @@ void    assign_pipes(t_info *data)
     {
         if (ft_strchr(data->file[i], '-'))
         {
-            if (((i < data->start || i < data->end)) || (i == data->start || i == data->end))
-                ft_error("assign pipesERROR");
+            if ((is_pipe(data->file[i]) == 1) && (i > data->end))
+                ft_error("is_pipe ERROR");
+            if ((((i < data->start || i < data->end)) || (i == data->start || i == data->end)) && (i > data->end))
+                ft_error("assign pipes ERROR");
             else
                 data->pipes[j] = ft_strdup(data->file[i]);
-
             j++;
         }
         i++;
