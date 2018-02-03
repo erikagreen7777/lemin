@@ -16,6 +16,7 @@ static void build_file(t_info *data)
     int i;
     i = 0;
     data->file = (char **)ft_memalloc(sizeof(char **) * 5000);
+    // while (get_next_line(data->fd, &data->line) > 0)
     while (get_next_line(0, &data->line) > 0)
     {
         data->file[i] = (data->line);
@@ -32,7 +33,7 @@ static void build_file(t_info *data)
 
 static void init_struct(t_info *data)
 {
-    char *filename = "maps/simple";
+    char *filename = "maps/bad_rooms";
     data->fd = open(filename, O_RDONLY);
     data->start = -1;
     data->end = -1;
