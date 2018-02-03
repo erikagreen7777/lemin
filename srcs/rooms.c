@@ -40,7 +40,7 @@ static int  check_room(char *str)
     {
         if (str[i] == ' ')
         {
-            if (!ft_isdigit(str[i + 1]))
+            if (!ft_isalnum(str[i + 1]))
                 return (1);
         }
         i++;
@@ -104,12 +104,10 @@ void    assign_rooms(t_info *data)
     {
         if (ft_strchr(&data->file[i][0], 'L'))
             ft_error("assign rooms ERROR");
-        if (!ft_strchr(data->file[i], '-') && (!ft_strchr(&data->file[i][0], '#')))
+        if ((!ft_strchr(data->file[i], '-') && (data->file[i][0] != '#')) && i < data->pipestart)
         {
             data->rooms[j] = ft_strdup(data->file[i]);
-            // printf("room[%d]: %s\n", i, data->file[i]);
             room_trim(data->rooms[j]);
-            // printf("new room[%d]: %s\n", i, data->rooms[j]);
             data->roomcount++;
             j++;
         }
