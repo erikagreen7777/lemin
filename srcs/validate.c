@@ -52,8 +52,10 @@ static void check_pipe_duplicates(t_info *data)
         j = i + 1;
         while (j < data->pipecount)
         {
-            if (ft_strcmp(data->pipes[i], data->pipes[j]) == 0)
-                ft_error("check pipe dupesERROR");
+            if (ft_strcmp(data->pipes[i], data->pipes[j]) == 0){
+                printf("duplicate pipe - what to do with the adjacency list?\n");
+                break;
+            }
             else
                 j++;
         }
@@ -78,20 +80,21 @@ static int  is_pipe(char *str)
 
 void    assign_pipes(t_info *data)
 {
-    int i = 0;
+    int i = data->pipestart;
     int j = 0;
     while (data->file[i])
     {
+        if (!(ft_strchr(data->file[i], '-')))
+            ft_error("not a pipe ERROR");
         if (ft_strchr(data->file[i], '-'))
         {
-            if ((is_pipe(data->file[i]) == 1) && (i > data->end))
+            if ((is_pipe(data->file[i]) == 1))
                 ft_error("is_pipe ERROR");
-            if ((((i < data->start || i < data->end)) || (i == data->start || i == data->end)) && (i > data->end))
+            if (((i < data->start || i < data->end)) || (i == data->start || i == data->end))
                 ft_error("assign pipes ERROR");
-            else{
+
+            else {
                 data->pipes[j] = ft_strdup(data->file[i]);
-                data->pipestart = i;
-                printf("pipestart: %d\n", data->pipestart);
             }
             j++;
         }
@@ -111,12 +114,15 @@ void    find_pipes(t_info *data)
 
     while (data->file[i])
     {
-        if (ft_strchr(data->file[i], '-'))
+        if (ft_strchr(data->file[i], '-') && (i > data->end))
             data->pipecount++;
+
         i++;
     }
     if (data->pipecount == 0)
         ft_error("find pipesERROR");
+    data->pipestart = data->linecount - data->pipecount;
+    printf("pipestart: %d\n", data->pipestart);
     data->pipes = (char **)ft_memalloc(sizeof(data->pipes) * data->pipecount + 1);
     assign_pipes(data);
 }
