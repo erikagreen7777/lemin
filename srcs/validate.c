@@ -88,8 +88,11 @@ void    assign_pipes(t_info *data)
                 ft_error("is_pipe ERROR");
             if ((((i < data->start || i < data->end)) || (i == data->start || i == data->end)) && (i > data->end))
                 ft_error("assign pipes ERROR");
-            else
+            else{
                 data->pipes[j] = ft_strdup(data->file[i]);
+                data->pipestart = i;
+                printf("pipestart: %d\n", data->pipestart);
+            }
             j++;
         }
         i++;
@@ -122,8 +125,8 @@ void    validate(t_info *data)
 {
     find_start(data);
     find_end(data);
-    assign_rooms(data);
     find_pipes(data);
+    assign_rooms(data);
 }
 
 
