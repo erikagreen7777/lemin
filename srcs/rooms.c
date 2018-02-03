@@ -89,7 +89,6 @@ char    *room_trim(char *str)
         i++;
     }
     ft_strncpy(str, temp, i);
-    ft_strdel(&temp);
     return (str);
 }
 
@@ -104,7 +103,7 @@ void    assign_rooms(t_info *data)
     {
         if (ft_strchr(&data->file[i][0], 'L'))
             ft_error("assign rooms ERROR");
-        if ((!ft_strchr(data->file[i], '-') && (data->file[i][0] != '#')) && i < data->pipestart)
+        if ((!ft_strchr(data->file[i], '-') && (data->file[i][0] != '#')) && (i < data->pipestart))
         {
             data->rooms[j] = ft_strdup(data->file[i]);
             room_trim(data->rooms[j]);
