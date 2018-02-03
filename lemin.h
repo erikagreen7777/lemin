@@ -28,6 +28,7 @@ typedef struct  s_info
     int     fd;
     int     curr;
     int	    start;
+    int     pipestart;
     char    *startingroom;
 	char 	*startstr;
 	int     end;
