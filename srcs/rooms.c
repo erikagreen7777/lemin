@@ -35,16 +35,20 @@ int      check_end_room(t_info *data)
 static int  check_room(char *str)
 {
     int i;
+    int spacecount;
     i = 0;
+    spacecount = 1;
     while (str[i])
     {
         if (str[i] == ' ')
-        {
-            if (!ft_isalnum(str[i + 1]))
+        {   spacecount++;
+            if (!ft_isdigit(str[i + 1]))
                 return (1);
         }
         i++;
     }
+    if (spacecount != 3)
+        ft_error("spacecount ERROR");
     return (0);
 }
 
@@ -99,7 +103,7 @@ void    assign_rooms(t_info *data)
     // (data->start > data->end) ? (i = data->end) : (i = data->start);
     int j = 0;
     data->rooms = (char **)ft_memalloc(sizeof(char *) * data->linecount);
-    while (data->file[i])
+    while (data->file[i] && (i < data->pipestart))
     {
         if (ft_strchr(&data->file[i][0], 'L'))
             ft_error("assign rooms ERROR");
