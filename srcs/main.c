@@ -49,6 +49,7 @@ static void init_struct(t_info *data)
     data->curr = 0;
     data->roomcount = 0;
     data->pipecount = 0;
+    data->pipestart = 0;
 }
 
 int main(int argc, char **argv)
