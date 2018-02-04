@@ -31,9 +31,9 @@ static void build_file(t_info *data)
     // printf("linecount: %d\n", data->linecount);
 }
 
-static void init_struct(t_info *data)
+static void i_like_big_structs_and_i_cannot_lie(t_info *data)
 {
-    char *filename = "maps/bad_rooms";
+    char *filename = "maps/simple";
     data->fd = open(filename, O_RDONLY);
     data->start = -1;
     data->end = -1;
@@ -51,6 +51,8 @@ static void init_struct(t_info *data)
     data->roomcount = 0;
     data->pipecount = 0;
     data->pipestart = 0;
+    data->swap = 0;
+    data->vertex = NULL;
 }
 
 int main(int argc, char **argv)
@@ -61,18 +63,18 @@ int main(int argc, char **argv)
         ;
     data = (t_info *)ft_memalloc(sizeof(t_info));
     
-    init_struct(data);
+    i_like_big_structs_and_i_cannot_lie(data);
     data->name = argv[1];
     build_file(data);
     ants(data);
     validate(data);
-    // struct Graph* graph = createGraph(4);
-    // addEdge(graph, 0, 1);
+    struct Graph* graph = createGraph(data->roomcount);
+    parse_pipes(data, graph);
     // addEdge(graph, 0, 2);
     // addEdge(graph, 1, 2);
     // addEdge(graph, 2, 3);
     
-    // printGraph(graph);
+    printGraph(graph);
 
     // DFS(graph, 2);
     
@@ -112,6 +114,8 @@ struct node* createNode(int v)
 
 struct Graph* createGraph(int vertices)
 {
+    int i;
+    i = 0;
     struct Graph* graph = malloc(sizeof(struct Graph));
     graph->numVertices = vertices;
  
@@ -119,12 +123,13 @@ struct Graph* createGraph(int vertices)
     
     graph->visited = malloc(vertices * sizeof(int));
  
-    int i;
-    for (i = 0; i < vertices; i++) {
+    while (i < vertices)
+    {
         graph->adjLists[i] = NULL;
         graph->visited[i] = 0;
+        i++;
     }
-    return graph;
+    return (graph);
 }
  
 void addEdge(struct Graph* graph, int src, int dest)

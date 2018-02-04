@@ -42,95 +42,71 @@ void    find_end(t_info *data)
         ft_error("find end 2ERROR");
 }
 
-static void check_pipe_duplicates(t_info *data)
-{
-    int i;
-    i = 0;
-    int j;
-    while (i < data->pipecount - 1)
-    {
-        j = i + 1;
-        while (j < data->pipecount)
-        {
-            if (ft_strcmp(data->pipes[i], data->pipes[j]) == 0){
-                printf("duplicate pipe - what to do with the adjacency list?\n");
-                break;
-            }
-            else
-                j++;
-        }
-        i++;
-    }
-}
+// static void check_pipe_duplicates(t_info *data)
+// {
+//     int i;
+//     i = 0;
+//     int j;
+//     while (i < data->pipecount)
+//     {
+//         j = i + 1;
+//         while (j < data->pipecount)
+//         {
+//             if (ft_strcmp(data->pipes[i], data->pipes[j]) == 0){
+//                 printf("duplicate pipe - what to do with the adjacency list?\n");
+//                 break;
+//             }
+//             else
+//                 j++;
+//         }
+//         i++;
+//     }
+// }
 
-static int  is_pipe(char *str)
-{
-    int i;
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == '-')
-            break;
-        i++;
-    }
-    if (!ft_isalnum(str[i - 1]) || (!ft_isalnum(str[i + 1])))
-        return (1);
-    return (0);
-}
 
-void    assign_pipes(t_info *data)
-{
-    int i = data->pipestart;
-    int j = 0;
-    while (data->file[i])
-    {
-        if (!(ft_strchr(data->file[i], '-')))
-            ft_error("not a pipe ERROR");
-        if (ft_strchr(data->file[i], '-'))
-        {
-            if ((is_pipe(data->file[i]) == 1))
-                ft_error("is_pipe ERROR");
-            if (((i < data->start || i < data->end)) || (i == data->start || i == data->end))
-                ft_error("assign pipes ERROR");
-
-            else {
-                data->pipes[j] = ft_strdup(data->file[i]);
-            }
-            j++;
-        }
-        i++;
-    }
-    data->pipes[j] = NULL;
-    check_pipe_duplicates(data);
-    j = -1;
-    while (data->pipes[++j])
-        printf("data->pipes[%d]: %s\n", j, data->pipes[j]);
-}
 
 void    find_pipes(t_info *data)
 {
     int i;
     i = 0;
+    int commentcount = 0;
 
     while (data->file[i])
     {
-        if (ft_strchr(data->file[i], '-') && (i > data->end))
+        if ((ft_strchr(data->file[i], '-')) && (i < data->end))
+            ft_error("pipes in rooms ERROR");
+        if ((ft_strchr(data->file[i], '-') || data->file[i][0] == '#') && i > data->end){
+            if (data->file[i][0] == '#'){
+                commentcount++;
+            }
             data->pipecount++;
+        }
+        // if (data->file[i][0] == '#' && i > data->end)
 
         i++;
     }
     if (data->pipecount == 0)
         ft_error("find pipesERROR");
+    data->pipecount -= commentcount;
     data->pipestart = data->linecount - data->pipecount;
-    printf("pipestart: %d\n", data->pipestart);
+    // printf("data->end: %d\npipecount: %d\n", data->end, data->pipecount);
+    // printf("comomentcount: %d\npipestart: %d\n", commentcount, data->pipestart);
     data->pipes = (char **)ft_memalloc(sizeof(data->pipes) * data->pipecount + 1);
     assign_pipes(data);
 }
 
 void    validate(t_info *data)
 {
+
     find_start(data);
     find_end(data);
+    // printf("before data->start: %d\nbefore data->end: %d\nbefore data->swap: %d\n", data->start, data->end, data->swap);
+    if (data->start > data->end)
+    {
+        ft_swap(&data->end, &data->start);
+        data->swap = 1;
+    }
+    // printf("after data->start: %d\nafter data->end: %d\nafter data->swap: %d\n", data->start, data->end, data->swap);
     find_pipes(data);
     assign_rooms(data);
 }

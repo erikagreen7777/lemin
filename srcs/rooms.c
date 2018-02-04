@@ -100,13 +100,13 @@ void    assign_rooms(t_info *data)
 {
     int i;
     i = 1;
-    // (data->start > data->end) ? (i = data->end) : (i = data->start);
     int j = 0;
     data->rooms = (char **)ft_memalloc(sizeof(char *) * data->linecount);
-    while (data->file[i] && (i < data->pipestart))
+    while (data->file[i]/* && (i >= data->start && i <= data->end)*/)
     {
         if (ft_strchr(&data->file[i][0], 'L'))
             ft_error("assign rooms ERROR");
+        // if (ft_strchr(data->file[i]))
         if ((!ft_strchr(data->file[i], '-') && (data->file[i][0] != '#')) && (i < data->pipestart))
         {
             data->rooms[j] = ft_strdup(data->file[i]);
@@ -119,8 +119,8 @@ void    assign_rooms(t_info *data)
     if (data->roomcount == 0)
         ft_error("assign rooms 2ERROR");
     check_room_duplicates(data);
-    i = -1;
-    while (++i < data->roomcount)
-        printf("rooms[%d]: %s\n", i, data->rooms[i]);
+    // i = -1;
+    // while (++i < data->roomcount)
+    //     printf("rooms[%d]: %s\n", i, data->rooms[i]);
 
 }
