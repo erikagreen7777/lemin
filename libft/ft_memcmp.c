@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: egreen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 10:43:44 by egreen            #+#    #+#             */
-/*   Updated: 2017/11/17 12:38:04 by egreen           ###   ########.fr       */
+/*   Created: 2017/09/23 07:27:52 by egreen            #+#    #+#             */
+/*   Updated: 2017/10/01 12:25:30 by egreen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <string.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include "libft.h"
+int		ft_memcmp(const void *str1, const void *str2, size_t n)
+{
+	size_t			i;
+	unsigned char	*str1c;
+	unsigned char	*str2c;
 
-# define BUFF_SIZE 256
-
-int					get_next_line(const int fd, char **line);
-
-#endif
+	i = 0;
+	str1c = (unsigned char *)str1;
+	str2c = (unsigned char *)str2;
+	while (i < n)
+	{
+		if (str1c[i] != str2c[i])
+			return (str1c[i] - str2c[i]);
+		i++;
+	}
+	return (0);
+}

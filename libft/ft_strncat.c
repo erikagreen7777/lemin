@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: egreen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 10:43:44 by egreen            #+#    #+#             */
-/*   Updated: 2017/11/17 12:38:04 by egreen           ###   ########.fr       */
+/*   Created: 2017/10/01 14:11:39 by egreen            #+#    #+#             */
+/*   Updated: 2017/10/01 14:21:25 by egreen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <string.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include "libft.h"
+char	*ft_strncat(char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+	int		j;
 
-# define BUFF_SIZE 256
-
-int					get_next_line(const int fd, char **line);
-
-#endif
+	i = 0;
+	j = 0;
+	while (s1[j])
+		j++;
+	while (s2[i] && (i < n))
+	{
+		s1[j] = s2[i];
+		j++;
+		i++;
+	}
+	s1[j] = '\0';
+	return (s1);
+}

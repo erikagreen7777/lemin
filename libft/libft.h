@@ -18,8 +18,9 @@
 # include <unistd.h>
 # include <stdio.h>
 # include "printf.h"
+# include "get_next_line.h"
 
-# define BUFF_SIZE 1
+# define BUFF_SIZE 256
 
 typedef struct		s_list
 {
@@ -97,5 +98,6 @@ char				*ft_strfjoin(char *s1, char *s2);
 void				ft_fputstr_fd(char *str, int fd);
 int 				ft_ispositive(int i);
 void				ft_error(char *str);
+char		*ft_strndup(const char *s1, int n);
 
 #endif

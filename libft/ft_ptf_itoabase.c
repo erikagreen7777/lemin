@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_ptf_itoabase.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: egreen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 10:43:44 by egreen            #+#    #+#             */
-/*   Updated: 2017/11/17 12:38:04 by egreen           ###   ########.fr       */
+/*   Created: 2017/11/27 12:56:42 by egreen            #+#    #+#             */
+/*   Updated: 2017/12/01 15:19:30 by egreen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "printf.h"
 
-# include <stdio.h>
-# include <string.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include "libft.h"
+char		*ft_ptf_itoabase(uintmax_t val, int base, int opt)
+{
+	static char	buf[32] = "0";
+	char		*set;
+	int			i;
+	int			h;
 
-# define BUFF_SIZE 256
-
-int					get_next_line(const int fd, char **line);
-
-#endif
+	set = HEXVALUE;
+	i = 30;
+	h = 0;
+	if (opt != 0)
+		h = 16;
+	if (val == 0)
+		return (ft_strcpy(buf, "0\0"));
+	while (val > 0 && i > 0)
+	{
+		buf[i] = set[(val % base) + h];
+		val = val / base;
+		--i;
+	}
+	return (buf + i + 1);
+}

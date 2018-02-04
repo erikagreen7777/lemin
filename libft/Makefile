@@ -94,7 +94,8 @@ SRC = ft_atoi.c \
 	  ft_ispositive.c \
 	  ft_swap.c \
 	  ft_error.c \
-	  ft_fputstr_fd.c
+	  ft_fputstr_fd.c \
+	  ft_strndup.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -104,17 +105,12 @@ $(NAME):
 	@gcc -Wall -Werror -Wextra -c -I libft.a -g $(SRC)
 	@ar rcs $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "Done."
 
 clean:
-	@echo "Cleaning $(OBJ)..."
 	@/bin/rm -f $(OBJ)
-	@echo "Done."
 
 fclean: clean
-	@echo "Cleaning $(NAME)..."
 	@/bin/rm -f $(NAME)
-	@echo "Done."
 
 re: fclean all
 
