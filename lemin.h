@@ -28,6 +28,7 @@ typedef struct  s_info
     int     fd;
     int     curr;
     int	    start;
+    int     swap;
     int     pipestart;
     char    *startingroom;
 	char 	*startstr;
@@ -43,6 +44,7 @@ typedef struct  s_info
     char    **file;
 	char	*name;
     char    *line;
+    char    **vertex;
 }			t_info;
 
 struct 	node* createNode(int v);
@@ -57,5 +59,9 @@ int     check_end_room(t_info *data);
 char    *room_trim(char *str);
 void    assign_rooms(t_info *data);
 int    check_duplicates(t_info *data, int pipeorroom);
+void    parse_pipes(t_info *data, struct Graph* graph);
+void    assign_pipes(t_info *data);
+
+
 
 #endif
