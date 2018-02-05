@@ -54,7 +54,7 @@ typedef struct  s_info
 t_node 	*createNode(int v);
 t_graph *createGraph(t_info *data);
 void 	addEdge(t_info *data, t_graph *graph, int src, int dest);
-void addEdgeString(t_graph *graph, char *src, char *dest, int srcindex, int destindex);
+void    addEdgeString(t_graph *graph, char *src, char *dest);
 void 	printGraph(t_graph *graph);
 void 	DFS(t_graph *graph, int vertex);
 void    find_start(t_info *data);
