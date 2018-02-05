@@ -12,27 +12,20 @@
 
 typedef struct s_node
 {
-    int vertex;
+    int index;
+    char *name;
     struct s_node *next;
 }               t_node;
-// struct node
-// {
-//     int vertex;
-//     struct node* next;
-// };
 
 typedef struct s_graph
 {
     int numVertices;
-    int* visited;
+    int *visited;
+    int index;
+    char **name; 
     t_node **adjLists; // we need int** to store a two dimensional array. Similary, we need struct node** to store an array of Linked lists
 }               t_graph;
-// struct Graph
-// {
-//     int numVertices;
-//     int* visited;
-//     struct node** adjLists; // we need int** to store a two dimensional array. Similary, we need struct node** to store an array of Linked lists
-// };
+
 
 typedef struct  s_info
 {
@@ -59,10 +52,11 @@ typedef struct  s_info
 }			t_info;
 
 t_node 	*createNode(int v);
-t_graph *createGraph(int vertices);
-void 	addEdge(t_graph *graph, int, int);
+t_graph *createGraph(t_info *data);
+void 	addEdge(t_info *data, t_graph *graph, int src, int dest);
+void addEdgeString(t_graph *graph, char *src, char *dest, int srcindex, int destindex);
 void 	printGraph(t_graph *graph);
-void 	DFS(t_graph *graph, int);
+void 	DFS(t_graph *graph, int vertex);
 void    find_start(t_info *data);
 void    validate(t_info *data);
 int     check_start_room(t_info *data);
