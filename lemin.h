@@ -56,7 +56,7 @@ t_graph *createGraph(t_info *data);
 void 	addEdge(t_info *data, t_graph *graph, int src, int dest);
 void    addEdgeString(t_graph *graph, char *src, char *dest);
 void 	printGraph(t_graph *graph);
-void 	DFS(t_graph *graph, int targetindex);
+void 	DFS(t_graph *graph, t_info *data, int targetindex);
 void    find_start(t_info *data);
 void    validate(t_info *data);
 int     check_start_room(t_info *data);
