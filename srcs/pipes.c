@@ -40,7 +40,7 @@ void    assign_pipes(t_info *data)
 
 }
 
-void	parse_pipes(t_info *data, struct Graph* graph)
+void    parse_pipes(t_info *data, t_graph *graph)
 {
 	int i;
 	i = 0;

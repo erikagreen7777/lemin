@@ -16,8 +16,8 @@ static void build_file(t_info *data)
     int i;
     i = 0;
     data->file = (char **)ft_memalloc(sizeof(char **) * 5000);
-    // while (get_next_line(data->fd, &data->line) > 0)
-    while (get_next_line(0, &data->line) > 0)
+    while (get_next_line(data->fd, &data->line) > 0)
+    // while (get_next_line(0, &data->line) > 0)
     {
         data->file[i] = (data->line);
         i++;
@@ -33,7 +33,7 @@ static void build_file(t_info *data)
 
 static void i_like_big_structs_and_i_cannot_lie(t_info *data)
 {
-    char *filename = "maps/simple";
+    char *filename = "maps/input2";
     data->fd = open(filename, O_RDONLY);
     data->start = -1;
     data->end = -1;
@@ -58,6 +58,7 @@ static void i_like_big_structs_and_i_cannot_lie(t_info *data)
 int main(int argc, char **argv)
 {
     t_info *data;
+    t_graph *graph;
 
     if (argc == 1)
         ;
@@ -68,12 +69,8 @@ int main(int argc, char **argv)
     build_file(data);
     ants(data);
     validate(data);
-    struct Graph* graph = createGraph(data->roomcount);
+    graph = createGraph(data->roomcount);
     parse_pipes(data, graph);
-    // addEdge(graph, 0, 2);
-    // addEdge(graph, 1, 2);
-    // addEdge(graph, 2, 3);
-    
     printGraph(graph);
 
     // DFS(graph, 2);
@@ -81,9 +78,9 @@ int main(int argc, char **argv)
     return 0;
 }
 
-void DFS(struct Graph* graph, int vertex) {
-        struct node* adjList = graph->adjLists[vertex];
-        struct node* temp = adjList;
+void DFS(t_graph *graph, int vertex) {
+        t_node *adjList = graph->adjLists[vertex];
+        t_node *temp = adjList;
         
         // int target = 1;
         graph->visited[vertex] = 1;
@@ -104,22 +101,22 @@ void DFS(struct Graph* graph, int vertex) {
         }       
 }
  
-struct node* createNode(int v)
+t_node *createNode(int v)
 {
-    struct node* newNode = malloc(sizeof(struct node));
+    t_node *newNode = malloc(sizeof(t_node));
     newNode->vertex = v;
     newNode->next = NULL;
-    return newNode;
+    return (newNode);
 }
 
-struct Graph* createGraph(int vertices)
+t_graph *createGraph(int vertices)
 {
     int i;
     i = 0;
-    struct Graph* graph = malloc(sizeof(struct Graph));
+    t_graph *graph = malloc(sizeof(t_graph));
     graph->numVertices = vertices;
  
-    graph->adjLists = malloc(vertices * sizeof(struct node*));
+    graph->adjLists = malloc(vertices * sizeof(t_node *));
     
     graph->visited = malloc(vertices * sizeof(int));
  
@@ -132,10 +129,10 @@ struct Graph* createGraph(int vertices)
     return (graph);
 }
  
-void addEdge(struct Graph* graph, int src, int dest)
+void addEdge(t_graph *graph, int src, int dest)
 {
     // Add edge from src to dest
-    struct node* newNode = createNode(dest);
+    t_node *newNode = createNode(dest);
     newNode->next = graph->adjLists[src];
     graph->adjLists[src] = newNode;
  
@@ -145,12 +142,12 @@ void addEdge(struct Graph* graph, int src, int dest)
     graph->adjLists[dest] = newNode;
 }
  
-void printGraph(struct Graph* graph)
+void printGraph(t_graph *graph)
 {
     int v;
     for (v = 0; v < graph->numVertices; v++)
     {
-        struct node* temp = graph->adjLists[v];
+        t_node *temp = graph->adjLists[v];
         printf("\n Adjacency list of vertex %d\n ", v);
         while (temp)
         {
