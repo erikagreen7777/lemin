@@ -16,7 +16,7 @@ static void build_file(t_info *data)
     int i;
     i = 0;
     data->file = (char **)ft_memalloc(sizeof(char **) * 5000);
-//     while (get_next_line(data->fd, &data->line) > 0)
+    // while (get_next_line(data->fd, &data->line) > 0)
     while (get_next_line(0, &data->line) > 0)
     {
         data->file[i] = (data->line);
@@ -69,91 +69,105 @@ int main(int argc, char **argv)
     build_file(data);
     ants(data);
     validate(data);
-    graph = createGraph(data->roomcount);
+    graph = createGraph(data);
     parse_pipes(data, graph);
-    printGraph(graph);
+    // printGraph(graph);
 
     // DFS(graph, 2);
     
     return 0;
 }
 
-void DFS(t_graph *graph, int vertex) {
-        t_node *adjList = graph->adjLists[vertex];
-        t_node *temp = adjList;
-        
-        // int target = 1;
-        graph->visited[vertex] = 1;
-        printf("Visited %d \n", vertex);
-    
-        while(temp!=NULL) {
-            int connectedVertex = temp->vertex;
-        
-            // if (connectedVertex == target)
-            // {
-            //     ft_printf("Found it! Target: %d\n", connectedVertex);
-            //     exit(0);
-            // }
-            if (graph->visited[connectedVertex] == 0) {
-                DFS(graph, connectedVertex);
-            }
-            temp = temp->next;
-        }       
-}
- 
-t_node *createNode(int v)
-{
-    t_node *newNode = malloc(sizeof(t_node));
-    newNode->vertex = v;
-    newNode->next = NULL;
-    return (newNode);
-}
-
-t_graph *createGraph(int vertices)
+t_graph *createGraph(t_info *data)
 {
     int i;
     i = 0;
     t_graph *graph = malloc(sizeof(t_graph));
-    graph->numVertices = vertices;
+    graph->numVertices = data->roomcount;
  
-    graph->adjLists = malloc(vertices * sizeof(t_node *));
+    graph->name = malloc(data->roomcount * sizeof(char *));
+    graph->adjLists = malloc(data->roomcount * sizeof(t_node *));
     
-    graph->visited = malloc(vertices * sizeof(int));
+    graph->visited = malloc(data->roomcount * sizeof(int));
  
-    while (i < vertices)
+    while (i < data->roomcount)
     {
         graph->adjLists[i] = NULL;
+        graph->name[i] = data->rooms[i];
+        graph->index = i;
+        // printf("graph->index: %d\tgraph->name: %s\n", graph->index, graph->name[i]);
         graph->visited[i] = 0;
+        graph->index++;
         i++;
+    }
+    graph->index = 0;
+    while (graph->index < data->roomcount)
+    {
+        printf("graph->index: %d\tgraph->name[i]: %s\tstart: %s\tend: %s\n", graph->index, graph->name[graph->index], 
+            data->startstr, data->endstr);
+        graph->index++;
     }
     return (graph);
 }
- 
-void addEdge(t_graph *graph, int src, int dest)
+
+
+t_node *createNode(int v)
 {
-    // Add edge from src to dest
-    t_node *newNode = createNode(dest);
-    newNode->next = graph->adjLists[src];
-    graph->adjLists[src] = newNode;
- 
+    t_node *newNode = malloc(sizeof(t_node));
+    newNode->index = v;
+    newNode->name = NULL;
+    newNode->next = NULL;
+    return (newNode);
+}
+
+void addEdgeString(t_graph *graph, char *src, char *dest, int srcindex, int destindex)
+{
+    //find a way to sync up the indeces of the graph to the indeces of the linked list
     // Add edge from dest to src
-    newNode = createNode(src);
-    newNode->next = graph->adjLists[dest];
-    graph->adjLists[dest] = newNode;
+
+    /*ft_strstr the graph to find the right name and then assign it the graph->index?*/
+    graph->index = 0;
+    while (graph->name[graph->index])
+    {
+        if (ft_strstr(graph->name[graph->index], src)){
+            srcindex = graph->index;
+            break;
+        }
+        graph->index++;
+    }
+    // printf("srcindex: %d\tsrc: %s\n", srcindex, src);
+    printf("dest:%s\tdestindex: %d\n", dest, destindex);
+    // t_node *newNode = createNode(srcindex/*do we need this index? I think it needs to match the graph*/);
+    // newNode->next = graph->adjLists[destindex]/*the list that has the name of our dest*/;
+    // newNode->name = src;
+    // graph->adjLists[destindex] = newNode; 
+    // printf("destindex: %d\n", destindex/*do we need this index? I think it needs to match the graph*/);
+
+    // // Add edge from src to dest
+    // newNode = createNode(destindex/*do we need this index? I think it needs to match the graph*/);
+    // newNode->name = dest;
+    // newNode->next = graph->adjLists[srcindex]/*the list that has the name of our src*/;
+    // graph->adjLists[srcindex] = newNode; 
+    // printf("srcindex: %d\n", srcindex/*do we need this index? I think it needs to match the graph*/);
 }
  
-void printGraph(t_graph *graph)
-{
-    int v;
-    for (v = 0; v < graph->numVertices; v++)
-    {
-        t_node *temp = graph->adjLists[v];
-        printf("\n Adjacency list of vertex %d\n ", v);
-        while (temp)
-        {
-            printf("%d -> ", temp->vertex);
-            temp = temp->next;
-        }
-        printf("\n");
-    }
-}
+
+// void printGraph(t_graph *graph)
+// {
+//     // int v;
+//     // for (v = 0; v < graph->numVertices; v++)
+//     // {
+//     for (graph->index = 0; graph->index < graph->numVertices; graph->index++)
+//     {  
+//         printf("graph->name: %s\t graph->index: %d\n", graph->name[graph->index], graph->index);
+//         t_node *temp = graph->adjLists[graph->index];
+//         printf("\n Adjacency list of vertex %s \n ",graph->name[graph->index]);
+//         while (temp)
+//         {
+
+//             printf("%s -> ", temp->name);
+//             temp = temp->next;
+//         }
+//         printf("\n");
+//     }
+// }

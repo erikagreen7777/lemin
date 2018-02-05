@@ -8,7 +8,7 @@ int      check_start_room(t_info *data)
             data->start++;
         if ((data->file[data->start][0] != '#') && (data->file[data->start][0] != 'L'))
         {
-            data->startstr = data->file[data->start];
+            data->startstr = room_trim(data->file[data->start]);
            // printf("start str: %s\n", data->startstr);
             return (1);
         }
@@ -24,7 +24,7 @@ int      check_end_room(t_info *data)
             data->end++;
         if ((data->file[data->end][0] != '#') && (data->file[data->end][0] != 'L'))
         {
-            data->endstr = data->file[data->end];
+            data->endstr = room_trim(data->file[data->end]);
            // printf("end str: %s\n", data->endstr);
             return (1);
         }

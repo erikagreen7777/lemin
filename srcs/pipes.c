@@ -44,16 +44,20 @@ void    parse_pipes(t_info *data, t_graph *graph)
 {
 	int i;
 	i = 0;
-
-	// data->vertex = (char **)ft_memalloc(sizeof(*data->pipes) * 2);
+    data->curr = 0;
+    
 	int j = -1;
     while (data->pipes[++j])
         printf("data->pipes[%d]: %s\n", j, data->pipes[j]);
 	while (data->pipes[i])
 	{	
 		data->vertex = ft_strsplit(data->pipes[i], '-');
-		addEdge(graph, ft_atoi(data->vertex[0]), ft_atoi(data->vertex[1]));
-		i++;
+        // addEdge(graph, ft_atoi(data->vertex[0]), ft_atoi(data->vertex[1]));
+        // printf("count: %d\ncount+1: %d\n", count, count + 1);    
+        // printf("data->vertex[0][%d]: %s\ndata->vertex[1][%d]: %s\n", count, data->vertex[0], count + 1, data->vertex[1]);    
+        addEdgeString(graph, data->vertex[0], data->vertex[1], data->curr, data->curr + 1);
+        i++;
+        data->curr += 2;
 	}
 	// i = 0;
 	// while (data->vertex[i])
