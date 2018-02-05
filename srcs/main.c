@@ -55,8 +55,25 @@ static void i_like_big_structs_and_i_cannot_lie(t_info *data)
     data->vertex = NULL;
 }
 
+static int find_target_index(t_graph *graph, char *src)
+{
+    int targetindex = -1;
+    graph->index = 0;
+    while (graph->name[graph->index])
+    {
+        if (ft_strstr(graph->name[graph->index], src)){
+            targetindex = graph->index;
+            // printf("srcindex: %d\tsrc: %s\n", srcindex, src);
+            return (targetindex);
+        }
+        graph->index++;
+    }
+    return (0);
+}
+
 int main(int argc, char **argv)
 {
+    int targetindex;
     t_info *data;
     t_graph *graph;
 
@@ -71,10 +88,10 @@ int main(int argc, char **argv)
     validate(data);
     graph = createGraph(data);
     parse_pipes(data, graph);
+    targetindex = find_target_index(graph, data->endstr);
+    printf("targetindex: %d\n", targetindex);
+    DFS(graph, 2);
     printGraph(graph);
-
-    // DFS(graph, 2);
-    
     return 0;
 }
 
@@ -186,4 +203,30 @@ void printGraph(t_graph *graph)
         }
         printf("\n");
     }
+}
+
+void DFS(t_graph *graph, int index)
+{
+    t_node *adjList = graph->adjLists[index];
+    t_node *temp = adjList;
+        
+    int target = 2/*end room*/;
+    graph->visited[index/*start at the beginning*/] = 1;
+    printf("Visited %d \n", index);
+
+    while(temp!=NULL) 
+    {
+        int connectedVertex = temp->index;
+        
+            if (connectedVertex == target)
+            {
+                ft_printf("Found it! Target: %d\n", connectedVertex);
+                exit(0);
+            }
+        if (graph->visited[connectedVertex] == 0)
+        {
+            DFS(graph, connectedVertex);
+        }
+        temp = temp->next;
+    }       
 }
