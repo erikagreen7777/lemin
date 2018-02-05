@@ -16,8 +16,8 @@ static void build_file(t_info *data)
     int i;
     i = 0;
     data->file = (char **)ft_memalloc(sizeof(char **) * 5000);
-    while (get_next_line(data->fd, &data->line) > 0)
-    // while (get_next_line(0, &data->line) > 0)
+//     while (get_next_line(data->fd, &data->line) > 0)
+    while (get_next_line(0, &data->line) > 0)
     {
         data->file[i] = (data->line);
         i++;
