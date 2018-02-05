@@ -45,17 +45,19 @@ void    parse_pipes(t_info *data, t_graph *graph)
 	int i;
 	i = 0;
     
-    
 	int j = -1;
     while (data->pipes[++j])
         printf("data->pipes[%d]: %s\n", j, data->pipes[j]);
-	while (data->pipes[i])
+	while (data->pipes[i] && data->pipes[i][0] != '#')
 	{	
 		data->vertex = ft_strsplit(data->pipes[i], '-');
         addEdgeString(graph, data->vertex[0], data->vertex[1]);
         i++;
        
 	}
-
-
 }
+
+//comments isn't working
+//underflow room trim error
+//overflow weird pointer malloc thing
+//test1 isn't supposed to work???? It looks fine to me
