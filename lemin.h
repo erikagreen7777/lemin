@@ -10,18 +10,29 @@
 
 # define BUFF_SIZE 256
 
-struct node
+typedef struct s_node
 {
     int vertex;
-    struct node* next;
-};
+    struct s_node *next;
+}               t_node;
+// struct node
+// {
+//     int vertex;
+//     struct node* next;
+// };
 
-struct Graph
+typedef struct s_graph
 {
     int numVertices;
     int* visited;
-    struct node** adjLists; // we need int** to store a two dimensional array. Similary, we need struct node** to store an array of Linked lists
-};
+    t_node **adjLists; // we need int** to store a two dimensional array. Similary, we need struct node** to store an array of Linked lists
+}               t_graph;
+// struct Graph
+// {
+//     int numVertices;
+//     int* visited;
+//     struct node** adjLists; // we need int** to store a two dimensional array. Similary, we need struct node** to store an array of Linked lists
+// };
 
 typedef struct  s_info
 {
@@ -47,11 +58,11 @@ typedef struct  s_info
     char    **vertex;
 }			t_info;
 
-struct 	node* createNode(int v);
-struct 	Graph* createGraph(int);
-void 	addEdge(struct Graph*, int, int);
-void 	printGraph(struct Graph*);
-void 	DFS(struct Graph*, int);
+t_node 	*createNode(int v);
+t_graph *createGraph(int vertices);
+void 	addEdge(t_graph *graph, int, int);
+void 	printGraph(t_graph *graph);
+void 	DFS(t_graph *graph, int);
 void    find_start(t_info *data);
 void    validate(t_info *data);
 int     check_start_room(t_info *data);
@@ -59,7 +70,7 @@ int     check_end_room(t_info *data);
 char    *room_trim(char *str);
 void    assign_rooms(t_info *data);
 int    check_duplicates(t_info *data, int pipeorroom);
-void    parse_pipes(t_info *data, struct Graph* graph);
+void    parse_pipes(t_info *data, t_graph *graph);
 void    assign_pipes(t_info *data);
 
 
