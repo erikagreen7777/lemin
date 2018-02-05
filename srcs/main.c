@@ -71,11 +71,27 @@ static int find_target_index(t_graph *graph, char *src)
     return (0);
 }
 
+static int find_start_index(t_graph *graph, char *src)
+{
+    int startindex = -1;
+    graph->index = 0;
+    while (graph->name[graph->index])
+    {
+        if (ft_strstr(graph->name[graph->index], src)){
+            startindex = graph->index;
+            // printf("srcindex: %d\tsrc: %s\n", srcindex, src);
+            return (startindex);
+        }
+        graph->index++;
+    }
+    return (0);
+}
+
 int main(int argc, char **argv)
 {
-    int targetindex;
     t_info *data;
     t_graph *graph;
+    int startindex;
 
     if (argc == 1)
         ;
@@ -88,9 +104,8 @@ int main(int argc, char **argv)
     validate(data);
     graph = createGraph(data);
     parse_pipes(data, graph);
-    targetindex = find_target_index(graph, data->endstr);
-    printf("targetindex: %d\n", targetindex);
-    DFS(graph, 2);
+    startindex = find_start_index(graph, data->startstr);
+    DFS(graph, data, startindex);
     printGraph(graph);
     return 0;
 }
@@ -194,7 +209,7 @@ void printGraph(t_graph *graph)
     {  
         // printf("graph->name: %s\t graph->index: %d\n", graph->name[graph->index], graph->index);
         t_node *temp = graph->adjLists[graph->index];
-        printf("\n Adjacency list of vertex %s \n ",graph->name[graph->index]);
+        printf("\n Adjacency list of vertex %s \n ", graph->name[graph->index]);
         while (temp)
         {
 
@@ -205,27 +220,28 @@ void printGraph(t_graph *graph)
     }
 }
 
-void DFS(t_graph *graph, int index)
+void DFS(t_graph *graph, t_info *data, int index/*start room*/)
 {
+    int targetindex;
+
+    targetindex = find_target_index(graph, data->endstr);
     t_node *adjList = graph->adjLists[index];
     t_node *temp = adjList;
         
-    int target = 2/*end room*/;
-    graph->visited[index/*start at the beginning*/] = 1;
-    printf("Visited %d \n", index);
+    graph->visited[index/*one means it's been visited*/] = 1;
+    printf("Visited %s \n", graph->name[index]);
 
-    while(temp!=NULL) 
+    while(temp != NULL) 
     {
         int connectedVertex = temp->index;
-        
-            if (connectedVertex == target)
-            {
-                ft_printf("Found it! Target: %d\n", connectedVertex);
-                exit(0);
-            }
+        if (connectedVertex == targetindex)
+        {
+            ft_printf("Found it! Target: %s\n", data->endstr);
+            exit(0);
+        }
         if (graph->visited[connectedVertex] == 0)
         {
-            DFS(graph, connectedVertex);
+            DFS(graph, data, connectedVertex);
         }
         temp = temp->next;
     }       
