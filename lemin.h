@@ -66,7 +66,9 @@ void    assign_rooms(t_info *data);
 int    check_duplicates(t_info *data, int pipeorroom);
 void    parse_pipes(t_info *data, t_graph *graph);
 void    assign_pipes(t_info *data);
-
-
+int     find_target_index(t_graph *graph, char *src);
+int     find_start_index(t_graph *graph, char *src);
+int     find_src_index(t_graph *graph, char *src);
+int     find_dest_index(t_graph *graph, char *dest);
 
 #endif
