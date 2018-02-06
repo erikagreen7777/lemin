@@ -33,7 +33,7 @@ static void build_file(t_info *data)
 
 static void i_like_big_structs_and_i_cannot_lie(t_info *data)
 {
-    char *filename = "maps/comments";
+    char *filename = "maps/simple";
     data->fd = open(filename, O_RDONLY);
     data->start = -1;
     data->end = -1;
@@ -107,6 +107,7 @@ int main(int argc, char **argv)
     graph = createGraph(data);
     parse_pipes(data, graph);
     startindex = find_start_index(graph, data->startstr);
+    data->currant = 1;
     DFS(graph, data, startindex);
     printGraph(graph);
     return 0;

@@ -50,20 +50,33 @@ void printGraph(t_graph *graph)
 void DFS(t_graph *graph, t_info *data, int index/*start room*/)
 {
     int targetindex;
+    int antcount = 1;
 
     targetindex = find_target_index(graph, data->endstr);
     t_node *adjList = graph->adjLists[index];
     t_node *temp = adjList;
-        
-    graph->visited[index/*one means it's been visited*/] = 1;
-    printf("Visited %s \n", graph->name[index]);
 
-    while(temp != NULL) 
+    graph->visited[index/*one means it's been visited*/] = 1;
+    // printf("Visited %s \n", graph->name[index]);
+
+    while(temp != NULL)
     {
         int connectedVertex = temp->index;
+        while (antcount < data->ants + 1)
+        {
+            ft_printf("L%d-%s ", antcount, graph->name[index]);
+            antcount++;
+        }
+        ft_putchar('\n');
         if (connectedVertex == targetindex)
         {
-            ft_printf("Found it! Target: %s\n", data->endstr);
+            antcount = 1;
+            while (antcount < data->ants + 1){
+                ft_printf("L%d-%s ", antcount, data->endstr);
+                antcount++;
+            }
+            ft_putchar('\n');
+            // ft_printf("Found it! Target: %s\n", data->endstr);
             exit(0);
         }
         if (graph->visited[connectedVertex] == 0)
@@ -72,6 +85,35 @@ void DFS(t_graph *graph, t_info *data, int index/*start room*/)
         }
         temp = temp->next;
     }
-    // if (temp == NULL)
-    //     ft_error("no solution found ERROR");    
+    if (temp == NULL)
+        ft_error("no solution found ERROR");
 }
+
+// void DFS(t_graph *graph, t_info *data, int index/*start room*/)
+// {
+//     int targetindex;
+
+//     targetindex = find_target_index(graph, data->endstr);
+//     t_node *adjList = graph->adjLists[index];
+//     t_node *temp = adjList;
+        
+//     graph->visited[index/*one means it's been visited*/] = 1;
+//     printf("Visited %s \n", graph->name[index]);
+
+//     while(temp != NULL) 
+//     {
+//         int connectedVertex = temp->index;
+//         if (connectedVertex == targetindex)
+//         {
+//             ft_printf("Found it! Target: %s\n", data->endstr);
+//             exit(0);
+//         }
+//         if (graph->visited[connectedVertex] == 0)
+//         {
+//             DFS(graph, data, connectedVertex);
+//         }
+//         temp = temp->next;
+//     }
+//     if (temp == NULL)
+//         ft_error("no solution found ERROR");    
+// }
