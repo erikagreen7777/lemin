@@ -1,6 +1,5 @@
 #include "../lemin.h"
 
-
 void    find_start(t_info *data)
 {
     int i;
@@ -42,28 +41,33 @@ void    find_end(t_info *data)
         ft_error("find end 2ERROR");
 }
 
-// static void check_pipe_duplicates(t_info *data)
-// {
-//     int i;
-//     i = 0;
-//     int j;
-//     while (i < data->pipecount)
-//     {
-//         j = i + 1;
-//         while (j < data->pipecount)
-//         {
-//             if (ft_strcmp(data->pipes[i], data->pipes[j]) == 0){
-//                 printf("duplicate pipe - what to do with the adjacency list?\n");
-//                 break;
-//             }
-//             else
-//                 j++;
-//         }
-//         i++;
-//     }
-// }
-
-
+static void commentsafterpipes(t_info *data)
+{
+    int i;
+    i = data->linecount - 1;
+    int comment = 0;
+    int commentcount = 0;
+    int pipe = 0;
+    printf("i: %d\n", i);
+    while (data->file[i])
+    {
+        if (data->file[i][0] == '#')
+        {
+            comment = i;
+            commentcount++;
+            printf("comment: %d\tcommentcount: %d\n", comment, commentcount);
+        }
+        else if (ft_strchr(data->file[i], '-'))
+        {
+            pipe = i;
+            printf("pipe: %d\n", pipe);
+            break;
+        }
+        i--;
+    }
+    if (comment > pipe)
+        data->linecount -= commentcount;
+}
 
 void    find_pipes(t_info *data)
 {
@@ -88,9 +92,10 @@ void    find_pipes(t_info *data)
     if (data->pipecount == 0)
         ft_error("find pipesERROR");
     data->pipecount -= commentcount;
+    commentsafterpipes(data);
     data->pipestart = data->linecount - data->pipecount;
     // printf("data->end: %d\npipecount: %d\n", data->end, data->pipecount);
-    // printf("comomentcount: %d\npipestart: %d\n", commentcount, data->pipestart);
+    // printf("linecount: %d\ncomomentcount: %d\npipestart: %d\n", data->linecount, commentcount, data->pipestart);
     data->pipes = (char **)ft_memalloc(sizeof(data->pipes) * data->pipecount + 1);
     assign_pipes(data);
 }
