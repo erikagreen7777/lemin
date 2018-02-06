@@ -45,6 +45,7 @@ typedef struct  s_info
     int     pipecount;
     char    **rooms;
 	int		ants;
+    int     currant;
     char    **file;
 	char	*name;
     char    *line;
