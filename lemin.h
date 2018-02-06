@@ -50,13 +50,14 @@ typedef struct  s_info
 	char	*name;
     char    *line;
     char    **vertex;
+    char    **solution;
 }			t_info;
 
 t_node 	*createNode(int v);
 t_graph *createGraph(t_info *data);
 void 	addEdge(t_info *data, t_graph *graph, int src, int dest);
 void    addEdgeString(t_graph *graph, char *src, char *dest);
-void 	printGraph(t_graph *graph);
+void 	printGraph(t_graph *graph, t_info *data);
 void 	DFS(t_graph *graph, t_info *data, int targetindex);
 void    find_start(t_info *data);
 void    validate(t_info *data);
