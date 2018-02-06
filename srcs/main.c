@@ -33,7 +33,7 @@ static void build_file(t_info *data)
 
 static void i_like_big_structs_and_i_cannot_lie(t_info *data)
 {
-    char *filename = "maps/input2";
+    char *filename = "maps/comments";
     data->fd = open(filename, O_RDONLY);
     data->start = -1;
     data->end = -1;

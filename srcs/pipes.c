@@ -29,7 +29,7 @@ void    assign_pipes(t_info *data)
                 ft_error("is_pipe ERROR");
             if (((i < data->start || i < data->end)) || (i == data->start || i == data->end))
                 ft_error("assign pipes ERROR");
-            else 
+            else/* if (data->file[i][0] != '#')*/
                 data->pipes[j] = ft_strdup(data->file[i]);
             j++;
         }
@@ -45,12 +45,12 @@ void    parse_pipes(t_info *data, t_graph *graph)
 	int i;
 	i = 0;
     
-	int j = -1;
-    while (data->pipes[++j])
-        printf("data->pipes[%d]: %s\n", j, data->pipes[j]);
-	while (data->pipes[i] && data->pipes[i][0] != '#')
+	// int j = -1;
+ //    while (data->pipes[++j])
+ //        printf("data->pipes[%d]: %s\n", j, data->pipes[j]);
+	while (data->pipes[i])
 	{	
-		data->vertex = ft_strsplit(data->pipes[i], '-');
+        data->vertex = ft_strsplit(data->pipes[i], '-');
         addEdgeString(graph, data->vertex[0], data->vertex[1]);
         i++;
        

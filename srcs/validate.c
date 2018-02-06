@@ -48,19 +48,19 @@ static void commentsafterpipes(t_info *data)
     int comment = 0;
     int commentcount = 0;
     int pipe = 0;
-    printf("i: %d\n", i);
+    // printf("i: %d\n", i);
     while (data->file[i])
     {
         if (data->file[i][0] == '#')
         {
             comment = i;
             commentcount++;
-            printf("comment: %d\tcommentcount: %d\n", comment, commentcount);
+            // printf("comment: %d\tcommentcount: %d\n", comment, commentcount);
         }
         else if (ft_strchr(data->file[i], '-'))
         {
             pipe = i;
-            printf("pipe: %d\n", pipe);
+            // printf("pipe: %d\n", pipe);
             break;
         }
         i--;

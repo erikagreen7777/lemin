@@ -84,7 +84,7 @@ char    *room_trim(char *str)
         if (temp[i] == ' ')
         {
             if (check_room(temp) == 1){
-                printf("temp[%d]: %s\n", i, temp);
+                // printf("temp[%d]: %s\n", i, temp);
                 ft_error("room trim ERROR");
             }
             else

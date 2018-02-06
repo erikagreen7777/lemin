@@ -72,6 +72,6 @@ void DFS(t_graph *graph, t_info *data, int index/*start room*/)
         }
         temp = temp->next;
     }
-    if (temp == NULL)
-        ft_error("no solution found ERROR");    
+    // if (temp == NULL)
+    //     ft_error("no solution found ERROR");    
 }
