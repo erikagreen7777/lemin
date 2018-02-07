@@ -33,7 +33,7 @@ static void build_file(t_info *data)
 
 static void i_like_big_structs_and_i_cannot_lie(t_info *data)
 {
-    char *filename = "maps/roundmap";
+    char *filename = "maps/simple1";
     data->fd = open(filename, O_RDONLY);
     data->start = -1;
     data->end = -1;
@@ -111,7 +111,6 @@ int main(int argc, char **argv)
     ft_putnbr(data->roomcount);
     write(1, "\n", 1);
     data->solution = (char **)ft_memalloc(sizeof(data->roomcount + 1));
-    // ft_memset(data->solution, 0, sizeof(data->solution));
     data->curr = 0;
     DFS(graph, data, startindex);
 

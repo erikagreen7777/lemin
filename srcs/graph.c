@@ -38,7 +38,7 @@ void printGraph(t_graph *graph, t_info *data)
     //     i++;ß
     // }
     int j = 1;
-    while (j < data->roomcount && (data->solution[j] != NULL))
+    while (j < data->roomcount && data->solution[j] != NULL)
     {     
         i = 1;
         while (i < data->ants + 1)
@@ -65,9 +65,10 @@ void DFS(t_graph *graph, t_info *data, int index)
 
     // data->solution[data->curr] = ft_strnew(sizeof(char *)/* * data->roomcount*/);
     int i = 0;
-    while (data->solution[i])
+    while (i < data->roomcount)
     {
-        data->solution[data->curr] = ft_strnew(sizeof(char *)/* * data->roomcount*/);
+        data->solution[data->curr] = (char *)ft_memalloc(sizeof(char *) + 1);
+        /*ft_strnew(sizeof(char *))*/;
         i++;
     }
     data->solution[data->curr] = ft_strdup(graph->name[index]);
