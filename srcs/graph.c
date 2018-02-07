@@ -39,6 +39,20 @@ void printGraph(t_graph *graph, t_info *data)
         printf("data->solution[%d]: %s\n", i, data->solution[i]);
         i++;
     }
+    printf("ants: %d\n", data->ants);
+    int j = 1;
+  
+    while (j < data->roomcount && (data->solution[j] != NULL))
+    {     
+        i = 1;
+        while (i < data->ants + 1)
+        {
+            printf("L%d-%s\n", i, data->solution[j]);
+            i++;
+        }
+        j++;
+    }
+
 
 
     // printf("ants: %d\n", data->ants);
