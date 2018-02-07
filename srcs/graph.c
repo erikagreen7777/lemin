@@ -32,37 +32,22 @@ void addEdgeString(t_graph *graph, char *src, char *dest)
  
 void printGraph(t_graph *graph, t_info *data)
 {
-    int i = 1;
-    int j = 1;
-   
-
-    printf("graph->index: %d\ndata->ants: %d\n", graph->index, data->ants);
-    printf("data->roomcount; %d\n", data->roomcount);
-    while (i < data->ants + 1)
+    int i = 0;
+    printf("graph->name: %s\n", graph->name[0]);
+    while (i < data->roomcount && (data->solution[i] != NULL))
     {
-        j = 1;
-        while (j < data->roomcount)
-        {
-            printf("L%d-%s\n", i, data->solution[j]);
-            j++;
-        }
+        printf("data->solution[%d]: %s\n", i, data->solution[i]);
         i++;
     }
 
-    // while (j < k)
+
+    // printf("ants: %d\n", data->ants);
+    // graph->index = 0;
+    // while (graph->index < graph->numVertices)
     // {
-    //     while (i < data->ants + 1)
-    //     {
-    //         printf("L%d-%s\n", i, data->solution[i]);
-    //         i++;
-    //     }
-    //     j++;
-    // }
-    // exit(0);
-    // for (graph->index = 0; graph->index < graph->numVertices; graph->index++)
-    // {  
     //     // printf("graph->name: %s\t graph->index: %d\n", graph->name[graph->index], graph->index);
     //     t_node *temp = graph->adjLists[graph->index];
+    //     // printf("data->solution[%d]: %s\n", graph->index, data->solution[graph->index]);
     //     // printf("data->solution[%d]: %s\n", graph->index, data->solution[graph->index]);
     //     printf("\n Adjacency list of vertex %s \n ", graph->name[graph->index]);
     //     while (temp)
@@ -72,79 +57,45 @@ void printGraph(t_graph *graph, t_info *data)
     //         temp = temp->next;
     //     }
     //     printf("\n");
-    // }
-}
-
-// void DFS(t_graph *graph, t_info *data, int index/*start room*/)
-// {
-//     int targetindex;
-
-//     targetindex = find_target_index(graph, data->endstr);
-//     t_node *adjList = graph->adjLists[index];
-//     t_node *temp = adjList;
-
-//     graph->visited[index/*one means it's been visited*/] = 1;
-//     // printf("Visited %s \n", graph->name[index]);
-
-//     while(temp != NULL)
-//     {
-//         int connectedVertex = temp->index;
-//         while (data->currant < data->ants + 1)
-//         {
-//                 ft_printf("L%d-%s\n", data->currant, graph->name[index]);
-
-//             if (connectedVertex == targetindex)
-//             {
-//                 ft_printf("L%d-%s ", data->currant, data->endstr);
-//                 ft_putchar('\n');
-//                 // ft_printf("Found it! Target: %s\n", data->endstr);
-//                 if (data->currant == data->ants + 1)
-//                     exit(0);
-//             }
-//             if (graph->visited[connectedVertex] == 0)
-//             {
-//                 DFS(graph, data, connectedVertex);
-//             }
-//             data->currant++;
-//         }
-//         temp = temp->next;
-//     }
-//     if (temp == NULL)
-//         ft_error("no solution found ERROR");
-// }
+    //     graph->index++;
+    }
 
 void DFS(t_graph *graph, t_info *data, int index/*start room*/)
 {
     int targetindex;
-    int i = index;
     targetindex = find_target_index(graph, data->endstr);
     t_node *adjList = graph->adjLists[index];
     t_node *temp = adjList;
-        
     graph->visited[index/*one means it's been visited*/] = 1;
-    printf("Visited %s \n", graph->name[index]);
-    data->solution[i] = ft_strdup(graph->name[i]);
-    // printf("data->solution[i]: %s\n", data->solution[i]);
-    i++;
+
+    // printf("Visited %s index: %d\n", graph->name[index], index);
+    ft_strnew(sizeof(data->solution) * data->roomcount);
+    data->solution[data->curr] = ft_strdup(graph->name[index]);
+    // printf("data->solution[%d]: %s\n", data->curr, data->solution[data->curr]);
+    data->curr++;
+    // printf("data->curr: %d\n", data->curr);
+
     while(temp != NULL) 
     {
         int connectedVertex = temp->index;
         if (connectedVertex == targetindex)
         {
-            data->solution[i] = ft_strdup(data->endstr);
-            // printf("data->solution[j]: %s\n", data->solution[i]);
-            ft_printf("Found it! Target: %s\n", data->endstr);
-            break;
-                // exit(0);
+            data->solution[data->curr] = ft_strdup(data->endstr);
+            // printf("data->solution[target%d]: %s\n", data->curr, data->solution[data->curr]);
+            // printf("target data->curr: %d\n", data->curr);
+            // data->solution[data->curr] = NULL;
+            // ft_printf("Found it! Target: %s\n", data->endstr);
+            printGraph(graph, data);
+            exit(0);
         }
         else if (graph->visited[connectedVertex] == 0)
         {
-            i++;
+            // printf("recursive data->curr: %d\n", data->curr);
+            // ft_strdel(&data->solution[data->curr]);
             DFS(graph, data, connectedVertex);
         }
         temp = temp->next;
     }
-
     if (temp == NULL)
         ft_error("no solution found ERROR");    
 }

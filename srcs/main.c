@@ -16,8 +16,8 @@ static void build_file(t_info *data)
     int i;
     i = 0;
     data->file = (char **)ft_memalloc(sizeof(char **) * 5000);
-    while (get_next_line(data->fd, &data->line) > 0)
-    // while (get_next_line(0, &data->line) > 0)
+    // while (get_next_line(data->fd, &data->line) > 0)
+    while (get_next_line(0, &data->line) > 0)
     {
         data->file[i] = (data->line);
         i++;
@@ -33,7 +33,7 @@ static void build_file(t_info *data)
 
 static void i_like_big_structs_and_i_cannot_lie(t_info *data)
 {
-    char *filename = "maps/simple";
+    char *filename = "maps/roundmap";
     data->fd = open(filename, O_RDONLY);
     data->start = -1;
     data->end = -1;
@@ -108,8 +108,9 @@ int main(int argc, char **argv)
     parse_pipes(data, graph);
     startindex = find_start_index(graph, data->startstr);
     data->solution = (char **)ft_memalloc(sizeof(data->roomcount + 1));
+    data->curr = 0;
     DFS(graph, data, startindex);
-    printGraph(graph, data);
+    // printGraph(graph, data);
     return 0;
 }
 
