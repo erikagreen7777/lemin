@@ -27,7 +27,7 @@ static void build_file(t_info *data)
     data->linecount = i;
     i = -1;
     while (data->file[++i])
-        printf("data->file[%d]: %s\n", i, data->file[i]);
+        ft_printf("data->file[%d]: %s\n", i, data->file[i]);
     // printf("linecount: %d\n", data->linecount);
 }
 
