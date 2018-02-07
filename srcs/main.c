@@ -99,6 +99,7 @@ int main(int argc, char **argv)
         ;
     data = (t_info *)ft_memalloc(sizeof(t_info));
     
+
     i_like_big_structs_and_i_cannot_lie(data);
     data->name = argv[1];
     build_file(data);
@@ -107,9 +108,13 @@ int main(int argc, char **argv)
     graph = createGraph(data);
     parse_pipes(data, graph);
     startindex = find_start_index(graph, data->startstr);
+    ft_putnbr(data->roomcount);
+    write(1, "\n", 1);
     data->solution = (char **)ft_memalloc(sizeof(data->roomcount + 1));
+    // ft_memset(data->solution, 0, sizeof(data->solution));
     data->curr = 0;
     DFS(graph, data, startindex);
+
     // printGraph(graph, data);
     return 0;
 }

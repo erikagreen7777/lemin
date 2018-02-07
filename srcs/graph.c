@@ -31,12 +31,12 @@ void addEdgeString(t_graph *graph, char *src, char *dest)
 void printGraph(t_graph *graph, t_info *data)
 {
     int i = 0;
-    ft_printf("graph->name: %s\n", graph->name[0]);
-    while (i < data->roomcount && (data->solution[i] != NULL))
-    {
-        ft_printf("data->solution[%d]: %s\n", i, data->solution[i]);
-        i++;
-    }
+   ft_printf("graph->name: %s\n", graph->name[0]);
+    // while (i < data->roomcount && (data->solution[i] != NULL))
+    // {
+    //     ft_printf("data->solution[%d]: %s\n", i, data->solution[i]);
+    //     i++;ß
+    // }
     int j = 1;
     while (j < data->roomcount && (data->solution[j] != NULL))
     {     
@@ -48,6 +48,11 @@ void printGraph(t_graph *graph, t_info *data)
         }
         j++;
     }
+    // data->solution[j] = NULL;
+    // while (1)
+    // {
+        
+    // }
 }
 
 void DFS(t_graph *graph, t_info *data, int index)
@@ -58,7 +63,13 @@ void DFS(t_graph *graph, t_info *data, int index)
     t_node *temp = adjList;
     graph->visited[index] = 1;
 
-    ft_strnew(sizeof(data->solution) * data->roomcount);
+    // data->solution[data->curr] = ft_strnew(sizeof(char *)/* * data->roomcount*/);
+    int i = 0;
+    while (data->solution[i])
+    {
+        data->solution[data->curr] = ft_strnew(sizeof(char *)/* * data->roomcount*/);
+        i++;
+    }
     data->solution[data->curr] = ft_strdup(graph->name[index]);
     data->curr++;
     while(temp != NULL) 
@@ -66,6 +77,7 @@ void DFS(t_graph *graph, t_info *data, int index)
         int connectedVertex = temp->index;
         if (connectedVertex == targetindex)
         {
+            // data->solution[data->curr] = ft_strnew(sizeof(char *)/* * data->roomcount*/);
             data->solution[data->curr] = ft_strdup(data->endstr);
             printGraph(graph, data);
             exit(0);
@@ -77,3 +89,4 @@ void DFS(t_graph *graph, t_info *data, int index)
     if (temp == NULL)
         ft_error("no solution found ERROR");    
 }
+

@@ -57,7 +57,13 @@ void    parse_pipes(t_info *data, t_graph *graph)
 	}
 }
 
-//comments isn't working
 //underflow room trim error
 //overflow weird pointer malloc thing
-//test1 isn't supposed to work???? It looks fine to me
+//test1 has two ##starts
+//map14 no solution found
+//europe
+//europe-utf
+//42
+//bmap no solution found
+//big
+//mmkr2
