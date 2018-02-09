@@ -2,8 +2,6 @@
 
 static void ants(t_info *data)
 {
-    int i;
-    i = 0;
     data->ants = ft_atoi(data->file[0]);
     if (data->ants < 1)
         ft_error("ants ERROR");
@@ -16,8 +14,8 @@ static void build_file(t_info *data)
     int i;
     i = 0;
     data->file = (char **)ft_memalloc(sizeof(char **) * 5000);
-    // while (get_next_line(data->fd, &data->line) > 0)
-    while (get_next_line(0, &data->line) > 0)
+//    while (get_next_line(data->fd, &data->line) > 0)
+     while (get_next_line(0, &data->line) > 0)
     {
         data->file[i] = (data->line);
         i++;
@@ -33,7 +31,7 @@ static void build_file(t_info *data)
 
 static void i_like_big_structs_and_i_cannot_lie(t_info *data)
 {
-    char *filename = "maps/simple1";
+    char *filename = "maps/europe";
     data->fd = open(filename, O_RDONLY);
     data->start = -1;
     data->end = -1;
@@ -59,9 +57,9 @@ t_graph *createGraph(t_info *data)
 {
     int i;
     i = 0;
+    
     t_graph *graph = malloc(sizeof(t_graph));
     graph->numVertices = data->roomcount;
- 
     graph->name = malloc(data->roomcount * sizeof(char *));
     graph->adjLists = malloc(data->roomcount * sizeof(t_node *));
     
@@ -95,11 +93,11 @@ int main(int argc, char **argv)
     t_graph *graph;
     int startindex;
 
-    if (argc == 1)
+    if (argc == 1){
         ;
+    }
     data = (t_info *)ft_memalloc(sizeof(t_info));
     
-
     i_like_big_structs_and_i_cannot_lie(data);
     data->name = argv[1];
     build_file(data);
@@ -108,14 +106,11 @@ int main(int argc, char **argv)
     graph = createGraph(data);
     parse_pipes(data, graph);
     startindex = find_start_index(graph, data->startstr);
-    ft_putnbr(data->roomcount);
-    write(1, "\n", 1);
-    data->solution = (char **)ft_memalloc(sizeof(data->roomcount + 1));
+    data->solution = (char **)ft_memalloc(sizeof(char *) * data->roomcount);
     data->curr = 0;
     DFS(graph, data, startindex);
-
-    // printGraph(graph, data);
-    return 0;
+ 
+    return (0);
 }
 
 

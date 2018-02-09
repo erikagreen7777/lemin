@@ -38,17 +38,20 @@ static int  check_room(char *str)
     int spacecount;
     i = 0;
     spacecount = 1;
-    while (str[i])
+    while (str[i] != '\0')
     {
         if (str[i] == ' ')
-        {   spacecount++;
+        {   
+            spacecount++;
             if (!ft_isdigit(str[i + 1]))
                 return (1);
         }
         i++;
     }
-    if (spacecount != 3)
+    if (spacecount != 3){
+        printf("str: %s\ti: %d\n", str, i);
         ft_error("spacecount ERROR");
+    }
     return (0);
 }
 
@@ -76,14 +79,17 @@ static void    check_room_duplicates(t_info *data)
 char    *room_trim(char *str)
 {
     int i = 0;
-    char *temp = (char *)ft_memalloc(sizeof(str));
-    ft_strcpy(temp, str);
+    char *temp;
+    temp = ft_strdup(str);
+    // char *temp = (char *)ft_memalloc(sizeof(str) + 1);
+    // ft_strcpy(temp, str);
     ft_bzero(str, sizeof(str));
     while (temp[i])
     {
         if (temp[i] == ' ')
         {
             if (check_room(temp) == 1){
+                printf("str: %s\n", str);
                 // printf("temp[%d]: %s\n", i, temp);
                 ft_error("room trim ERROR");
             }
@@ -92,7 +98,9 @@ char    *room_trim(char *str)
         }
         i++;
     }
+    temp[i] = '\0';
     ft_strncpy(str, temp, i);
+    ft_strdel(&temp);
     return (str);
 }
 
@@ -104,8 +112,10 @@ void    assign_rooms(t_info *data)
     data->rooms = (char **)ft_memalloc(sizeof(char *) * data->linecount);
     while (data->file[i]/* && (i >= data->start && i <= data->end)*/)
     {
-        if (ft_strchr(&data->file[i][0], 'L'))
+        if (data->file[i][0] == 'L'){
+            printf("data->file[%d]: %c\n", i, data->file[i][0]);
             ft_error("assign rooms ERROR");
+        }
         // if (ft_strchr(data->file[i]))
         if ((!ft_strchr(data->file[i], '-') && (data->file[i][0] != '#')) && (i < data->pipestart))
         {

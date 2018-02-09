@@ -14,8 +14,9 @@ void    find_start(t_info *data)
     }
     if (data->start == -1)
         ft_error("find_startERROR");
-    if (check_start_room(data))
+    if (check_start_room(data)){
         ;
+    }
     else
         ft_error("find start 2ERROR");
 }
@@ -35,8 +36,9 @@ void    find_end(t_info *data)
     }
     if (data->end == -1)
         ft_error("infd_end ERROR");
-    if (check_end_room(data))
+    if (check_end_room(data)){
         ;
+    }
     if (ft_strcmp(data->startstr, data->endstr) == 0)
         ft_error("find end 2ERROR");
 }
