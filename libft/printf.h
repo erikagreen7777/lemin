@@ -6,7 +6,7 @@
 /*   By: egreen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/27 12:53:55 by egreen            #+#    #+#             */
-/*   Updated: 2017/12/01 14:58:07 by egreen           ###   ########.fr       */
+/*   Updated: 2018/02/10 16:03:14 by egreen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,5 @@ void				hex_helper(t_format *form, t_spec *ts);
 void				hex_helper2(t_format *form, t_spec *ts);
 void				hex_print(t_spec *ts, char print, int times);
 int					ft_printf(const char *format, ...);
-
 
 #endif

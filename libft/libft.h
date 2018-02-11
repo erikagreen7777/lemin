@@ -6,7 +6,7 @@
 /*   By: egreen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 08:44:57 by egreen            #+#    #+#             */
-/*   Updated: 2018/01/18 09:26:20 by egreen           ###   ########.fr       */
+/*   Updated: 2018/02/10 16:07:47 by egreen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ int					ft_isupper(int c);
 int					get_next_line(const int fd, char **line);
 char				*ft_strfjoin(char *s1, char *s2);
 void				ft_fputstr_fd(char *str, int fd);
-int 				ft_ispositive(int i);
+int					ft_ispositive(int i);
 void				ft_error(char *str);
-char		*ft_strndup(const char *s1, int n);
+char				*ft_strndup(const char *s1, int n);
 
 #endif
