@@ -1,0 +1,60 @@
+simple: 
+Process 86628: 188 nodes malloced for 53 KB
+Process 86628: 4 leaks for 64 total leaked bytes.
+Leak: 0x7fa85cd00070  size=16  zone: DefaultMallocZone_0x10e02d000  length: 9  "start 0 0"
+Leak: 0x7fa85cd000a0  size=16  zone: DefaultMallocZone_0x10e02d000  length: 7  "end 1 1"
+Leak: 0x7fa85cd000f0  size=16  zone: DefaultMallocZone_0x10e02d000  length: 5  "start"
+Leak: 0x7fa85cd00110  size=16  zone: DefaultMallocZone_0x10e02d000  length: 3  "end"
+
+comments:
+Process 88054: 193 nodes malloced for 53 KB
+Process 88054: 4 leaks for 64 total leaked bytes.
+Leak: 0x7fe7a45000f0  size=16  zone: DefaultMallocZone_0x109fec000  length: 7  "end 1 1"
+Leak: 0x7fe7a4500100  size=16  zone: DefaultMallocZone_0x109fec000  length: 9  "start 0 0"
+Leak: 0x7fe7a4500160  size=16  zone: DefaultMallocZone_0x109fec000  length: 5  "start"
+Leak: 0x7fe7a4500180  size=16  zone: DefaultMallocZone_0x109fec000  length: 3  "end"
+
+input2: 
+Leak: 0x7ffeae402830  size=16  zone: DefaultMallocZone_0x107532000  length: 5  "0 1 0"
+Leak: 0x7ffeae4028b0  size=16  zone: DefaultMallocZone_0x107532000  length: 5  "1 5 0"
+Leak: 0x7ffeae402970  size=16  zone: DefaultMallocZone_0x107532000  length: 1  "0"
+Leak: 0x7ffeae402990  size=16  zone: DefaultMallocZone_0x107532000  length: 1  "1"
+Leak: 0x7ffeae4029b0  size=16  zone: DefaultMallocZone_0x107532000  length: 5  "2 9 0"
+Leak: 0x7ffeae4029d0  size=16  zone: DefaultMallocZone_0x107532000  length: 6  "3 13 0"
+Leak: 0x7ffeae402a60  size=32  zone: DefaultMallocZone_0x107532000
+	0xae402a80 0x00007ffe 0xae402a90 0x00007ffe 	.*@......*@.....
+	0x00000000 0x00000000 0x00000000 0x00000000 	................
+Leak: 0x7ffeae402ae0  size=32  zone: DefaultMallocZone_0x107532000
+	0xae402b00 0x00007ffe 0xae402b10 0x00007ffe 	.+@......+@.....
+	0x00000000 0x00000000 0x00000000 0x00000000 	................
+
+roundmap:
+Leak: 0x7ff81f500080  size=16  zone: DefaultMallocZone_0x10caa6000  length: 5  "4 4 4"
+Leak: 0x7ff81f5000b0  size=16  zone: DefaultMallocZone_0x10caa6000  length: 5  "1 1 1"
+Leak: 0x7ff81f500180  size=16  zone: DefaultMallocZone_0x10caa6000  length: 1  "1"
+Leak: 0x7ff81f5001a0  size=16  zone: DefaultMallocZone_0x10caa6000  length: 5  "2 2 2"
+Leak: 0x7ff81f5001c0  size=16  zone: DefaultMallocZone_0x10caa6000  length: 5  "3 3 3"
+Leak: 0x7ff81f5001e0  size=16  zone: DefaultMallocZone_0x10caa6000  length: 1  "4"
+Leak: 0x7ff81f500270  size=32  zone: DefaultMallocZone_0x10caa6000
+	0x1f500290 0x00007ff8 0x1f5002a0 0x00007ff8 	..P.......P.....
+	0x00000000 0x00000000 0x00000000 0x00000000 	................
+Leak: 0x7ff81f5002f0  size=32  zone: DefaultMallocZone_0x10caa6000
+	0x1f500310 0x00007ff8 0x1f500320 0x00007ff8 	..P..... .P.....
+	0x00000000 0x00000000 0x00000000 0x00000000 	................
+
+duplicatepipe1:
+Leak: 0x7fa82be00000  size=16  zone: DefaultMallocZone_0x10e3c2000  length: 9  "start 0 0"
+Leak: 0x7fa82be00010  size=16  zone: DefaultMallocZone_0x10e3c2000  length: 7  "end 0 0"
+Leak: 0x7fa82be000b0  size=16  zone: DefaultMallocZone_0x10e3c2000  length: 5  "start"
+Leak: 0x7fa82be000d0  size=16  zone: DefaultMallocZone_0x10e3c2000  length: 3  "end"
+Leak: 0x7fa82be00140  size=32  zone: DefaultMallocZone_0x10e3c2000
+	0x2be00160 0x00007fa8 0x2be00170 0x00007fa8 	`..+....p..+....
+	0x00000000 0x00000000 0x00000000 0x00000000 	................
+
+	
+//underflow - room trim error
+//overflow - memory issue
+//map14 - no solution found
+//utf-8 - no pipe
+//europe - pipe error
+//42 no solution found
