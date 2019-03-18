@@ -6,3 +6,5 @@ Description: You must move your ant colony from one point to another in the leas
 Objectives: Graph traversal, Depth first search
 
 Skills: Imperative programming, Algorithms & AI, Rigor 
+
+Requirements: [PDF](https://github.com/erikagreen7777/42_projects/blob/master/lemin/lem-in.en.pdf)
